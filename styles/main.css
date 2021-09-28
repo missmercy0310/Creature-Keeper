@@ -7,10 +7,52 @@ body {
     padding: 0;
 }
 
+main {
+    position: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
 #interface {
     border: 5px solid black;
     height: 600px;
     width: 450px;
-    position: absolute;
-    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    text-align: center;
+}
+
+#screens {
+    border: 1px solid blue;
+    display: flex;
+    flex-direction: column;
+    width: 320px;
+    height: 320px;
+}
+
+#top-fourth {
+    border: 1px solid green;
+    width: 100%;
+    height: 25%;
+}
+
+#middle-half {
+    border: 1px solid green;
+    width: 100%;
+    height: 50%;
+}
+
+#bottom-fourth {
+    border: 1px solid green;
+    width: 100%;
+    height: 25%;
+}
+
+#buttons {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
 }
