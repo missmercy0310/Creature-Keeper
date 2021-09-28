@@ -9,10 +9,25 @@ const game = {
     select: $("#select"),
     power: $("#power"),
 
-    powerUp (event) {
-        console.log("Powering On...")
-        $("#middle-half").append("<h2>Welcome!</h2>")
+    powerButton (event) {
+        if ($(event.target).hasClass("pressed") === false) {
+            console.log("Powering On...");
+            $(event.target).addClass("pressed");
+            $("#screens").css("background-color","white");
+            this.gameStart();
+        } else {
+            console.log("Powering Off...");
+            $(event.target).removeClass("pressed");
+            $("#screens").css("background-color","lightgray");
+            $("#top-fourth").empty();
+            $("#middle-half").empty();
+            $("#bottom-fourth").empty();
+        }
+    },
+
+    gameStart (event) {
+        $("#middle-half").append("<h2>Welcome!</h2><p>please press select</p>");
     }
 };
 
-game.power.click(game.powerUp.bind(game));
+game.power.click(game.powerButton.bind(game));
