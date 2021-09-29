@@ -4,7 +4,9 @@ const game = {
     hunger: 0,
     boredom: 0,
     bloodlust: 0,
-    time: 60,
+    time: 0,
+    age: 1,
+    name: '',
     arrow: $("#arrow"),
     select: $("#select"),
     power: $("#power"),
@@ -32,12 +34,19 @@ const game = {
         $("#middle-half").append(`<h2>Welcome!</h2><p>please press <i class="fas fa-angle-double-right"></i></p>`).addClass("begin");
     },
 
+    setUpStage () {
+        $("#middle-half").removeClass().addClass(`stage-${this.age}`);
+        this.hunger = 0;
+        this.boredom = 0;
+        this.bloodlust = 0;
+        $("#top-fourth").empty().append(`<p class="hunger">hunger: ${this.hunger}</p><p class="boredom">boredom: ${this.boredom}</p><p class="bloodlust">bloodlust: ${this.bloodlust}</p>`);
+        $("#bottom-fourth").empty().append(`<p class="feed">feed</p><p class="play-with">play with</p><p class="satiate">satiate</p>`);
+        $(".feed").css("color", "red").addClass("selected");
+    },
+
     selectButton (event) {
         if ($("#middle-half").hasClass("birth")) {
-            $("#middle-half").removeClass().addClass("stage-1");
-            $("#top-fourth").empty().append(`<p class="hunger">hunger: ${this.hunger}</p><p class="boredom">boredom: ${this.boredom}</p><p class="bloodlust">bloodlust: ${this.bloodlust}</p>`);
-            $("#bottom-fourth").empty().append(`<p class="feed">feed</p><p class="play-with">play with</p><p class="satiate">satiate</p>`);
-            $(".feed").css("color", "red").addClass("selected");
+            this.setUpStage();
         } else if ($(".feed").hasClass("selected")) {
             this.hunger--;
             $(".hunger").text(`hunger: ${this.hunger}`);
@@ -71,7 +80,7 @@ const game = {
             $("#middle-half").empty().removeClass("eyeball");
             $("#middle-half").append(`<img src="gifs/Mist Tamagotchi.gif">`).addClass("mist");
             $("#bottom-fourth").empty().append("<p>Mist Creature</p>");
-        } else if ($("#middle-half").hasClass("stage-1")) {
+        } else if ($("#middle-half").hasClass(`stage-${this.age}`)) {
             if ($(".feed").hasClass("selected")) {
                 $(".feed").removeClass("selected").css("color", "black");
                 $(".play-with").css("color", "red").addClass("selected");
@@ -83,6 +92,18 @@ const game = {
                 $(".feed").css("color", "red").addClass("selected");
             }
         }
+    },
+    timer: null,
+    startTimer() {
+        this.timer = setInterval(this.increaseTime.bind(game), 1000);
+    },
+    increaseTime() {
+        this.time++;
+        console.log(this.time);
+        if (this.time >= 60) {
+            this.age++;
+            this.setUpStage();
+        };
     },
 };
 
