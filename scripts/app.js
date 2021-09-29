@@ -29,7 +29,7 @@ const game = {
     },
 
     gameStart (event) {
-        $("#middle-half").append("<h2>Welcome!</h2><p>please press >></p>").addClass("begin");
+        $("#middle-half").append(`<h2>Welcome!</h2><p>please press <i class="fas fa-angle-double-right"></i></p>`).addClass("begin");
     },
 
     selectButton (event) {
@@ -53,10 +53,10 @@ const game = {
     arrowButton (event) {
         if ($("#middle-half").hasClass("begin")) {
             $("#middle-half").empty().removeClass("begin");
-            $("#middle-half").append("<p>You have been tasked with caring for a baby creature of your choice. Be sure it doesn't get too cranky!</p><p>press >></p>").addClass("intro");
+            $("#middle-half").append(`<p>You have been tasked with caring for a baby creature of your choice. Be sure it doesn't get too cranky!</p><p>press <i class="fas fa-angle-double-right"></i></p>`).addClass("intro");
         } else if ($("#middle-half").hasClass("intro")) {
             $("#middle-half").empty().removeClass("intro");
-            $("#top-fourth").append("<p>Choose your creature:</p>");
+            $("#top-fourth").append("<h4>Choose your creature:</h4>");
             $("#middle-half").append(`<img src="gifs/Mist Tamagotchi.gif">`).addClass("mist birth");
             $("#bottom-fourth").append("<p>Mist Creature</p>");
         } else if ($("#middle-half").hasClass("mist")) {
