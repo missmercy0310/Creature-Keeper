@@ -37,6 +37,10 @@ const game = {
 
     setUpStage () {
         if (this.age >= 4) {
+            clearInterval(this.timer);
+            this.hunger = 0;
+            this.boredom = 0;
+            this.bloodlust = 0;
             $("#top-fourth").empty();
             $("#bottom-fourth").empty();
             $("#middle-half").empty().removeClass();
@@ -111,18 +115,34 @@ const game = {
     increaseTime() {
         this.time++;
         console.log(this.time);
-        this.hunger++;
-        $(".hunger").text(`hunger: ${this.hunger}`);
-        this.boredom++;
-        $(".boredom").text(`boredom: ${this.boredom}`);
-        this.bloodlust++;
-        $(".bloodlust").text(`bloodlust: ${this.bloodlust}`);
-        if (this.time >= 60) {
-            clearInterval(this.timer);
+        if (this.time % 2 === 0) {
+            this.hunger++;
+            $(".hunger").text(`hunger: ${this.hunger}`);
+            this.boredom++;
+            $(".boredom").text(`boredom: ${this.boredom}`);
+            this.bloodlust++;
+            $(".bloodlust").text(`bloodlust: ${this.bloodlust}`);
+        };
+        if (this.time >= 120) {
+            this.time = 0;
             this.age++;
             this.setUpStage();
         };
+        if (this.hunger >= 30 || this.boredom >= 30 || this.bloodlust >= 30) {
+            this.death();
+        }
     },
+
+    death() {
+        clearInterval(this.timer);
+        this.hunger = 0;
+        this.boredom = 0;
+        this.bloodlust = 0;
+        $("#top-fourth").empty();
+        $("#bottom-fourth").empty();
+        $("#middle-half").empty().removeClass();
+        $("#middle-half").append(`<p>You failed to take care of your creature, and it got very cranky! You have died.</p>`).addClass("death");
+    }
 };
 
 game.power.click(game.powerButton.bind(game));
