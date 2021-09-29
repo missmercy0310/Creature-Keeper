@@ -13,12 +13,12 @@ const game = {
         if ($(event.target).hasClass("pressed") === false) {
             console.log("Powering On...");
             $(event.target).addClass("pressed");
-            $("#screens").css("background-color","white");
+            $("#screens").css("background-color","lightgrey");
             this.gameStart();
         } else {
             console.log("Powering Off...");
             $(event.target).removeClass("pressed");
-            $("#screens").css("background-color","lightgray");
+            $("#screens").css("background-color","darkgray");
             $("#top-fourth").empty();
             $("#middle-half").empty();
             $("#bottom-fourth").empty();
@@ -57,19 +57,19 @@ const game = {
         } else if ($("#middle-half").hasClass("intro")) {
             $("#middle-half").empty().removeClass("intro");
             $("#top-fourth").append("<p>Choose your creature:</p>");
-            $("#middle-half").append(`<img src="images/Mist Tamagotchi.png">`).addClass("mist birth");
+            $("#middle-half").append(`<img src="gifs/Mist Tamagotchi.gif">`).addClass("mist birth");
             $("#bottom-fourth").append("<p>Mist Creature</p>");
         } else if ($("#middle-half").hasClass("mist")) {
             $("#middle-half").empty().removeClass("mist");
-            $("#middle-half").append(`<img src="images/Slime Tamagotchi.png">`).addClass("slime");
+            $("#middle-half").append(`<img src="gifs/Slime Tamagotchi.gif">`).addClass("slime");
             $("#bottom-fourth").empty().append("<p>Slime Creature</p>");
         } else if ($("#middle-half").hasClass("slime")) {
             $("#middle-half").empty().removeClass("slime");
-            $("#middle-half").append(`<img src="images/Eyeball Tamagotchi.png">`).addClass("eyeball");
+            $("#middle-half").append(`<img src="gifs/Eyeball Tamagotchi.gif">`).addClass("eyeball");
             $("#bottom-fourth").empty().append("<p>Eyeball Creature</p>");
         } else if ($("#middle-half").hasClass("eyeball")) {
             $("#middle-half").empty().removeClass("eyeball");
-            $("#middle-half").append(`<img src="images/Mist Tamagotchi.png">`).addClass("mist");
+            $("#middle-half").append(`<img src="gifs/Mist Tamagotchi.gif">`).addClass("mist");
             $("#bottom-fourth").empty().append("<p>Mist Creature</p>");
         } else if ($("#middle-half").hasClass("stage-1")) {
             if ($(".feed").hasClass("selected")) {
