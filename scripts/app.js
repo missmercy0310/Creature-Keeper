@@ -69,7 +69,7 @@ const game = {
                 $("#middle-half").empty();
                 $("#middle-half").append(`<img src="gifs/Eyeball Tamagotchi.gif">`)
             };
-            $("#middle-half").removeClass().addClass(`stage-${this.age}`);
+            $("#middle-half").removeClass("naming").addClass(`stage-${this.age}`);
             this.hunger = 0;
             this.boredom = 0;
             this.bloodlust = 0;
@@ -130,15 +130,15 @@ const game = {
             $("#top-fourth").append("<h4>Choose your creature:</h4>");
             $("#middle-half").append(`<img src="gifs/Mist Tamagotchi.gif">`).addClass("mist birth");
             $("#bottom-fourth").append("<p>Mist Creature</p>");
-        } else if ($("#middle-half").hasClass("mist") && $("#middle-half").hasClass("naming") === false) {
+        } else if ($("#middle-half").hasClass("mist") && $("#middle-half").hasClass("birth")) {
             $("#middle-half").empty().removeClass("mist");
             $("#middle-half").append(`<img src="gifs/Slime Tamagotchi.gif">`).addClass("slime");
             $("#bottom-fourth").empty().append("<p>Slime Creature</p>");
-        } else if ($("#middle-half").hasClass("slime") && $("#middle-half").hasClass("naming") === false) {
+        } else if ($("#middle-half").hasClass("slime") && $("#middle-half").hasClass("birth")) {
             $("#middle-half").empty().removeClass("slime");
             $("#middle-half").append(`<img src="gifs/Eyeball Tamagotchi.gif">`).addClass("eyeball");
             $("#bottom-fourth").empty().append("<p>Eyeball Creature</p>");
-        } else if ($("#middle-half").hasClass("eyeball") && $("#middle-half").hasClass("naming") === false) {
+        } else if ($("#middle-half").hasClass("eyeball") && $("#middle-half").hasClass("birth")) {
             $("#middle-half").empty().removeClass("eyeball");
             $("#middle-half").append(`<img src="gifs/Mist Tamagotchi.gif">`).addClass("mist");
             $("#bottom-fourth").empty().append("<p>Mist Creature</p>");
