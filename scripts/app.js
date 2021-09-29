@@ -50,7 +50,7 @@ const game = {
             this.hunger = 0;
             this.boredom = 0;
             this.bloodlust = 0;
-            $("#top-fourth").empty().append(`<section class="basic-info"><p class="age">age: ${this.age}</p></section><section class="stats"><p class="hunger">hunger: ${this.hunger}</p><p class="boredom">boredom: ${this.boredom}</p><p class="bloodlust">bloodlust: ${this.bloodlust}</p></section>`);
+            $("#top-fourth").empty().append(`<section class="basic-info"><p class="age">age: ${this.age}</p></section><section class="stats"><i class="fas fa-utensils"></i><p class="hunger">${this.hunger}</p><i class="fas fa-meh"></i><p class="boredom">${this.boredom}</p><i class="fas fa-skull"></i><p class="bloodlust">${this.bloodlust}</p></section>`);
             $("#bottom-fourth").empty().append(`<p class="feed">feed</p><p class="play-with">play with</p><p class="satiate">satiate</p>`);
             $(".feed").css("color", "red").addClass("selected");
             clearInterval(this.timer);
@@ -63,13 +63,13 @@ const game = {
             this.setUpStage();
         } else if ($(".feed").hasClass("selected") && this.hunger > 0) {
             this.hunger--;
-            $(".hunger").text(`hunger: ${this.hunger}`);
+            $(".hunger").text(`${this.hunger}`);
         } else if ($(".play-with").hasClass("selected") && this.boredom > 0) {
             this.boredom--;
-            $(".boredom").text(`boredom: ${this.boredom}`);
+            $(".boredom").text(`${this.boredom}`);
         } else if ($(".satiate").hasClass("selected") && this.bloodlust > 0) {
             this.bloodlust--;
-            $(".bloodlust").text(`bloodlust: ${this.bloodlust}`);
+            $(".bloodlust").text(`${this.bloodlust}`);
         }
     },
 
@@ -117,11 +117,11 @@ const game = {
         console.log(this.time);
         if (this.time % 2 === 0) {
             this.hunger++;
-            $(".hunger").text(`hunger: ${this.hunger}`);
+            $(".hunger").text(`${this.hunger}`);
             this.boredom++;
-            $(".boredom").text(`boredom: ${this.boredom}`);
+            $(".boredom").text(`${this.boredom}`);
             this.bloodlust++;
-            $(".bloodlust").text(`bloodlust: ${this.bloodlust}`);
+            $(".bloodlust").text(`${this.bloodlust}`);
         };
         if (this.time >= 120) {
             this.time = 0;
