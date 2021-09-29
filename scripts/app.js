@@ -72,7 +72,7 @@ const game = {
             this.hunger = 0;
             this.boredom = 0;
             this.bloodlust = 0;
-            $("#top-fourth").empty().append(`<section class="basic-info"><p class="name">age: ${this.name}</p><p class="age">age: ${this.age}</p></section><section class="stats"><i class="fas fa-utensils"></i><p class="hunger">${this.hunger}</p><i class="fas fa-meh"></i><p class="boredom">${this.boredom}</p><i class="fas fa-skull"></i><p class="bloodlust">${this.bloodlust}</p></section>`);
+            $("#top-fourth").empty().append(`<section class="basic-info"><p class="name">name: ${this.name}</p><p class="age">age: ${this.age}</p></section><section class="stats"><i class="fas fa-utensils"></i><p class="hunger">${this.hunger}</p><i class="fas fa-meh"></i><p class="boredom">${this.boredom}</p><i class="fas fa-skull"></i><p class="bloodlust">${this.bloodlust}</p></section>`);
             $("#bottom-fourth").empty().append(`<p class="feed">feed</p><p class="play-with">play with</p><p class="satiate">satiate</p>`);
             $(".feed").css("color", "red").addClass("selected");
             clearInterval(this.timer);
@@ -96,11 +96,14 @@ const game = {
         } else if ($("#middle-half").hasClass("naming")) {
             if ($(".letter-1").hasClass("selected")) {
                 $(".letter-1").removeClass("selected").css("color", "black");
+                this.name += this.letter1;
                 $(".letter-2").css("color", "red").addClass("selected");
             } else if ($(".letter-2").hasClass("selected")) {
                 $(".letter-2").removeClass("selected").css("color", "black");
+                this.name += this.letter2;
                 $(".letter-3").css("color", "red").addClass("selected");
             } else if ($(".letter-3").hasClass("selected")) {
+                this.name += this.letter3;
                 this.setUpStage();
             }
         } else if ($(".feed").hasClass("selected") && this.hunger > 0) {
@@ -124,20 +127,30 @@ const game = {
             $("#top-fourth").append("<h4>Choose your creature:</h4>");
             $("#middle-half").append(`<img src="gifs/Mist Tamagotchi.gif">`).addClass("mist birth");
             $("#bottom-fourth").append("<p>Mist Creature</p>");
-        } else if ($("#middle-half").hasClass("mist")) {
+        } else if ($("#middle-half").hasClass("mist") && $("#middle-half").hasClass("naming") === false) {
             $("#middle-half").empty().removeClass("mist");
             $("#middle-half").append(`<img src="gifs/Slime Tamagotchi.gif">`).addClass("slime");
             $("#bottom-fourth").empty().append("<p>Slime Creature</p>");
-        } else if ($("#middle-half").hasClass("slime")) {
+        } else if ($("#middle-half").hasClass("slime") && $("#middle-half").hasClass("naming") === false) {
             $("#middle-half").empty().removeClass("slime");
             $("#middle-half").append(`<img src="gifs/Eyeball Tamagotchi.gif">`).addClass("eyeball");
             $("#bottom-fourth").empty().append("<p>Eyeball Creature</p>");
-        } else if ($("#middle-half").hasClass("eyeball")) {
+        } else if ($("#middle-half").hasClass("eyeball") && $("#middle-half").hasClass("naming") === false) {
             $("#middle-half").empty().removeClass("eyeball");
             $("#middle-half").append(`<img src="gifs/Mist Tamagotchi.gif">`).addClass("mist");
             $("#bottom-fourth").empty().append("<p>Mist Creature</p>");
         } else if ($("#middle-half").hasClass("naming")) {
-            
+            let letterIndex = 0;
+            if ($(".letter-1").hasClass("selected")) {
+                letterIndex++;
+                $(".letter-1").text(`${this.alphabet[letterIndex]}`);
+            } else if ($(".letter-2").hasClass("selected")) {
+                letterIndex++;
+                $(".letter-2").text(`${this.alphabet[letterIndex]}`);
+            } else if ($(".letter-3").hasClass("selected")) {
+                letterIndex++;
+                $(".letter-3").text(`${this.alphabet[letterIndex]}`);
+            }
         } else if ($("#middle-half").hasClass(`stage-${this.age}`)) {
             if ($(".feed").hasClass("selected")) {
                 $(".feed").removeClass("selected").css("color", "black");
