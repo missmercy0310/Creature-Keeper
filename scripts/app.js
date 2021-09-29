@@ -6,6 +6,7 @@ const game = {
     bloodlust: 0,
     time: 0,
     age: 1,
+    letterIndex: 0,
     alphabet: ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'],
     letter1: 'A',
     letter2: 'A',
@@ -98,10 +99,12 @@ const game = {
                 $(".letter-1").removeClass("selected").css("color", "black");
                 this.name += this.letter1;
                 $(".letter-2").css("color", "red").addClass("selected");
+                this.letterIndex = 0;
             } else if ($(".letter-2").hasClass("selected")) {
                 $(".letter-2").removeClass("selected").css("color", "black");
                 this.name += this.letter2;
                 $(".letter-3").css("color", "red").addClass("selected");
+                this.letterIndex = 0;
             } else if ($(".letter-3").hasClass("selected")) {
                 this.name += this.letter3;
                 this.setUpStage();
@@ -140,16 +143,36 @@ const game = {
             $("#middle-half").append(`<img src="gifs/Mist Tamagotchi.gif">`).addClass("mist");
             $("#bottom-fourth").empty().append("<p>Mist Creature</p>");
         } else if ($("#middle-half").hasClass("naming")) {
-            let letterIndex = 0;
             if ($(".letter-1").hasClass("selected")) {
-                letterIndex++;
-                $(".letter-1").text(`${this.alphabet[letterIndex]}`);
+                if (this.letterIndex > 26) {
+                    this.letterIndex = 0;
+                    $(".letter-1").text(`${this.alphabet[this.letterIndex]}`);
+                    this.letter1 = this.alphabet[this.letterIndex];
+                } else {
+                    this.letterIndex++;
+                    $(".letter-1").text(`${this.alphabet[this.letterIndex]}`);
+                    this.letter1 = this.alphabet[this.letterIndex];
+                }
             } else if ($(".letter-2").hasClass("selected")) {
-                letterIndex++;
-                $(".letter-2").text(`${this.alphabet[letterIndex]}`);
+                if (this.letterIndex > 26) {
+                    this.letterIndex = 0;
+                    $(".letter-2").text(`${this.alphabet[this.letterIndex]}`);
+                    this.letter2 = this.alphabet[this.letterIndex];
+                } else {
+                    this.letterIndex++;
+                    $(".letter-2").text(`${this.alphabet[this.letterIndex]}`);
+                    this.letter2 = this.alphabet[this.letterIndex];
+                }
             } else if ($(".letter-3").hasClass("selected")) {
-                letterIndex++;
-                $(".letter-3").text(`${this.alphabet[letterIndex]}`);
+                if (this.letterIndex > 26) {
+                    this.letterIndex = 0;
+                    $(".letter-3").text(`${this.alphabet[this.letterIndex]}`);
+                    this.letter3 = this.alphabet[this.letterIndex];
+                } else {
+                    this.letterIndex++;
+                    $(".letter-3").text(`${this.alphabet[this.letterIndex]}`);
+                    this.letter3 = this.alphabet[this.letterIndex];
+                }
             }
         } else if ($("#middle-half").hasClass(`stage-${this.age}`)) {
             if ($(".feed").hasClass("selected")) {
