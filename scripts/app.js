@@ -144,7 +144,7 @@ const game = {
             $("#bottom-fourth").empty().append("<p>Mist Creature</p>");
         } else if ($("#middle-half").hasClass("naming")) {
             if ($(".letter-1").hasClass("selected")) {
-                if (this.letterIndex > 26) {
+                if (this.letterIndex >= 25) {
                     this.letterIndex = 0;
                     $(".letter-1").text(`${this.alphabet[this.letterIndex]}`);
                     this.letter1 = this.alphabet[this.letterIndex];
@@ -154,7 +154,7 @@ const game = {
                     this.letter1 = this.alphabet[this.letterIndex];
                 }
             } else if ($(".letter-2").hasClass("selected")) {
-                if (this.letterIndex > 26) {
+                if (this.letterIndex >= 25) {
                     this.letterIndex = 0;
                     $(".letter-2").text(`${this.alphabet[this.letterIndex]}`);
                     this.letter2 = this.alphabet[this.letterIndex];
@@ -164,7 +164,7 @@ const game = {
                     this.letter2 = this.alphabet[this.letterIndex];
                 }
             } else if ($(".letter-3").hasClass("selected")) {
-                if (this.letterIndex > 26) {
+                if (this.letterIndex >= 25) {
                     this.letterIndex = 0;
                     $(".letter-3").text(`${this.alphabet[this.letterIndex]}`);
                     this.letter3 = this.alphabet[this.letterIndex];
