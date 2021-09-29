@@ -80,6 +80,12 @@ p {
     align-items: center;
 }
 
+#name {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 #middle-half {
     border: 1px solid gray;
     width: 100%;

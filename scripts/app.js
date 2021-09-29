@@ -6,6 +6,10 @@ const game = {
     bloodlust: 0,
     time: 0,
     age: 1,
+    alphabet: ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'],
+    letter1: 'A',
+    letter2: 'A',
+    letter3: 'A',
     name: '',
     arrow: $("#arrow"),
     select: $("#select"),
@@ -35,6 +39,14 @@ const game = {
         $("#middle-half").append(`<h2>Welcome!</h2><p>please press <i class="fas fa-angle-double-right"></i></p>`).addClass("begin");
     },
 
+    naming () {
+        $("#top-fourth").empty().append("<h4>Name your creature:</h4>");
+        $("#bottom-fourth").empty();
+        $("#middle-half").empty().removeClass("birth");
+        $("#middle-half").append(`<div id="name"><p class="letter-1">${this.letter1}</p><p class="letter-2">${this.letter2}</p><p class="letter-3">${this.letter3}</p></div>`).addClass("naming");
+        $(".letter-1").css("color", "red").addClass("selected");
+    },
+
     setUpStage () {
         if (this.age >= 4) {
             clearInterval(this.timer);
@@ -45,12 +57,32 @@ const game = {
             $("#bottom-fourth").empty();
             $("#middle-half").empty().removeClass();
             $("#middle-half").append(`<p>You have successfully taken care of your baby creature, and it is now old enough to venture out into the world!</p>`).addClass("extro");
+        } else if ($("#middle-half").hasClass("naming")) {
+            if ($("#middle-half").hasClass("mist")) {
+                $("#middle-half").empty();
+                $("#middle-half").append(`<img src="gifs/Mist Tamagotchi.gif">`)
+            } else if ($("#middle-half").hasClass("slime")) {
+                $("#middle-half").empty();
+                $("#middle-half").append(`<img src="gifs/Slime Tamagotchi.gif">`)
+            } else if ($("#middle-half").hasClass("eyeball")) {
+                $("#middle-half").empty();
+                $("#middle-half").append(`<img src="gifs/Eyeball Tamagotchi.gif">`)
+            };
+            $("#middle-half").removeClass().addClass(`stage-${this.age}`);
+            this.hunger = 0;
+            this.boredom = 0;
+            this.bloodlust = 0;
+            $("#top-fourth").empty().append(`<section class="basic-info"><p class="name">age: ${this.name}</p><p class="age">age: ${this.age}</p></section><section class="stats"><i class="fas fa-utensils"></i><p class="hunger">${this.hunger}</p><i class="fas fa-meh"></i><p class="boredom">${this.boredom}</p><i class="fas fa-skull"></i><p class="bloodlust">${this.bloodlust}</p></section>`);
+            $("#bottom-fourth").empty().append(`<p class="feed">feed</p><p class="play-with">play with</p><p class="satiate">satiate</p>`);
+            $(".feed").css("color", "red").addClass("selected");
+            clearInterval(this.timer);
+            this.startTimer();
         } else {
             $("#middle-half").removeClass().addClass(`stage-${this.age}`);
             this.hunger = 0;
             this.boredom = 0;
             this.bloodlust = 0;
-            $("#top-fourth").empty().append(`<section class="basic-info"><p class="age">age: ${this.age}</p></section><section class="stats"><i class="fas fa-utensils"></i><p class="hunger">${this.hunger}</p><i class="fas fa-meh"></i><p class="boredom">${this.boredom}</p><i class="fas fa-skull"></i><p class="bloodlust">${this.bloodlust}</p></section>`);
+            $("#top-fourth").empty().append(`<section class="basic-info"><p class="name">name: ${this.name}</p><p class="age">age: ${this.age}</p></section><section class="stats"><i class="fas fa-utensils"></i><p class="hunger">${this.hunger}</p><i class="fas fa-meh"></i><p class="boredom">${this.boredom}</p><i class="fas fa-skull"></i><p class="bloodlust">${this.bloodlust}</p></section>`);
             $("#bottom-fourth").empty().append(`<p class="feed">feed</p><p class="play-with">play with</p><p class="satiate">satiate</p>`);
             $(".feed").css("color", "red").addClass("selected");
             clearInterval(this.timer);
@@ -60,7 +92,17 @@ const game = {
 
     selectButton (event) {
         if ($("#middle-half").hasClass("birth")) {
-            this.setUpStage();
+            this.naming();
+        } else if ($("#middle-half").hasClass("naming")) {
+            if ($(".letter-1").hasClass("selected")) {
+                $(".letter-1").removeClass("selected").css("color", "black");
+                $(".letter-2").css("color", "red").addClass("selected");
+            } else if ($(".letter-2").hasClass("selected")) {
+                $(".letter-2").removeClass("selected").css("color", "black");
+                $(".letter-3").css("color", "red").addClass("selected");
+            } else if ($(".letter-3").hasClass("selected")) {
+                this.setUpStage();
+            }
         } else if ($(".feed").hasClass("selected") && this.hunger > 0) {
             this.hunger--;
             $(".hunger").text(`${this.hunger}`);
@@ -94,6 +136,8 @@ const game = {
             $("#middle-half").empty().removeClass("eyeball");
             $("#middle-half").append(`<img src="gifs/Mist Tamagotchi.gif">`).addClass("mist");
             $("#bottom-fourth").empty().append("<p>Mist Creature</p>");
+        } else if ($("#middle-half").hasClass("naming")) {
+            
         } else if ($("#middle-half").hasClass(`stage-${this.age}`)) {
             if ($(".feed").hasClass("selected")) {
                 $(".feed").removeClass("selected").css("color", "black");
@@ -123,7 +167,7 @@ const game = {
             this.bloodlust++;
             $(".bloodlust").text(`${this.bloodlust}`);
         };
-        if (this.time >= 120) {
+        if (this.time >= 60) {
             this.time = 0;
             this.age++;
             $(".age").text(`age: ${this.age}`);
