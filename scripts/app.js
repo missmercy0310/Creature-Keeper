@@ -20,6 +20,7 @@ const game = {
         } else {
             console.log("Powering Off...");
             $(event.target).removeClass("pressed");
+            clearInterval(this.timer);
             $("#screens").css("background-color","darkgray");
             $("#top-fourth").empty();
             $("#middle-half").empty();
@@ -35,25 +36,34 @@ const game = {
     },
 
     setUpStage () {
-        $("#middle-half").removeClass().addClass(`stage-${this.age}`);
-        this.hunger = 0;
-        this.boredom = 0;
-        this.bloodlust = 0;
-        $("#top-fourth").empty().append(`<p class="hunger">hunger: ${this.hunger}</p><p class="boredom">boredom: ${this.boredom}</p><p class="bloodlust">bloodlust: ${this.bloodlust}</p>`);
-        $("#bottom-fourth").empty().append(`<p class="feed">feed</p><p class="play-with">play with</p><p class="satiate">satiate</p>`);
-        $(".feed").css("color", "red").addClass("selected");
+        if (this.age >= 4) {
+            $("#top-fourth").empty();
+            $("#bottom-fourth").empty();
+            $("#middle-half").empty().removeClass();
+            $("#middle-half").append(`<p>You have successfully taken care of your baby creature, and it is now old enough to venture out into the world!</p>`).addClass("extro");
+        } else {
+            $("#middle-half").removeClass().addClass(`stage-${this.age}`);
+            this.hunger = 0;
+            this.boredom = 0;
+            this.bloodlust = 0;
+            $("#top-fourth").empty().append(`<p class="hunger">hunger: ${this.hunger}</p><p class="boredom">boredom: ${this.boredom}</p><p class="bloodlust">bloodlust: ${this.bloodlust}</p>`);
+            $("#bottom-fourth").empty().append(`<p class="feed">feed</p><p class="play-with">play with</p><p class="satiate">satiate</p>`);
+            $(".feed").css("color", "red").addClass("selected");
+            clearInterval(this.timer);
+            this.startTimer();
+        }
     },
 
     selectButton (event) {
         if ($("#middle-half").hasClass("birth")) {
             this.setUpStage();
-        } else if ($(".feed").hasClass("selected")) {
+        } else if ($(".feed").hasClass("selected") && this.hunger > 0) {
             this.hunger--;
             $(".hunger").text(`hunger: ${this.hunger}`);
-        } else if ($(".play-with").hasClass("selected")) {
+        } else if ($(".play-with").hasClass("selected") && this.boredom > 0) {
             this.boredom--;
             $(".boredom").text(`boredom: ${this.boredom}`);
-        } else if ($(".satiate").hasClass("selected")) {
+        } else if ($(".satiate").hasClass("selected") && this.bloodlust > 0) {
             this.bloodlust--;
             $(".bloodlust").text(`bloodlust: ${this.bloodlust}`);
         }
@@ -93,6 +103,7 @@ const game = {
             }
         }
     },
+
     timer: null,
     startTimer() {
         this.timer = setInterval(this.increaseTime.bind(game), 1000);
@@ -100,7 +111,14 @@ const game = {
     increaseTime() {
         this.time++;
         console.log(this.time);
+        this.hunger++;
+        $(".hunger").text(`hunger: ${this.hunger}`);
+        this.boredom++;
+        $(".boredom").text(`boredom: ${this.boredom}`);
+        this.bloodlust++;
+        $(".bloodlust").text(`bloodlust: ${this.bloodlust}`);
         if (this.time >= 60) {
+            clearInterval(this.timer);
             this.age++;
             this.setUpStage();
         };
