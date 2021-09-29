@@ -50,7 +50,7 @@ const game = {
             this.hunger = 0;
             this.boredom = 0;
             this.bloodlust = 0;
-            $("#top-fourth").empty().append(`<p class="hunger">hunger: ${this.hunger}</p><p class="boredom">boredom: ${this.boredom}</p><p class="bloodlust">bloodlust: ${this.bloodlust}</p>`);
+            $("#top-fourth").empty().append(`<section class="basic-info"><p class="age">age: ${this.age}</p></section><section class="stats"><p class="hunger">hunger: ${this.hunger}</p><p class="boredom">boredom: ${this.boredom}</p><p class="bloodlust">bloodlust: ${this.bloodlust}</p></section>`);
             $("#bottom-fourth").empty().append(`<p class="feed">feed</p><p class="play-with">play with</p><p class="satiate">satiate</p>`);
             $(".feed").css("color", "red").addClass("selected");
             clearInterval(this.timer);
@@ -126,6 +126,7 @@ const game = {
         if (this.time >= 120) {
             this.time = 0;
             this.age++;
+            $(".age").text(`age: ${this.age}`);
             this.setUpStage();
         };
         if (this.hunger >= 30 || this.boredom >= 30 || this.bloodlust >= 30) {
