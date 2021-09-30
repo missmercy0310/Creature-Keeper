@@ -27,6 +27,7 @@ const game = {
         } else {
             console.log("Powering Off...");
             $(event.target).removeClass("pressed");
+            clearInterval(this.timer);
             $("#screens").css("background-color","darkgray");
             $("#top-fourth").empty();
             $("#middle-half").empty();
