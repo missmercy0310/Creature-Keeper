@@ -352,7 +352,7 @@ game.arrow.click(game.arrowButton.bind(game));
 $(window).keypress(function(e) {
     if (e.key == "p") {
         game.power.click();
-    } else if (e.key == "Enter") {
+    } else if (e.key == "j") {
         game.select.click();
     } else if (e.key == "d") {
         game.arrow.click();
