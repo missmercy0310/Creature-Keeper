@@ -68,8 +68,8 @@ const game = {
             this.bloodlust = 0;
             $("#top-fourth").empty();
             $("#bottom-fourth").empty();
-            $("#middle-half").empty().removeClass();
-            $("#middle-half").append(`<h4>Congrats!</h4><p>You have successfully taken care of your baby creature. It is now old enough to venture into the world and grow to an unjustifiable size!</p><p>Thanks for playing Creature Keeper!</p>`).addClass("extro");
+            $("#middle-half").empty().removeClass(`stage-${this.age}`);
+            $("#middle-half").append(`<h4>Congrats!</h4><p>Your creature will now venture into the world and grow to an untenable size!</p><p>Thanks for playing Creature Keeper!</p>`).addClass("extro");
         } else if ($("#middle-half").hasClass("naming")) {
             if ($("#middle-half").hasClass("mist")) {
                 $("#middle-half").empty();
@@ -131,6 +131,12 @@ const game = {
             clearInterval(this.timer);
             this.startTimer();
         }
+    },
+
+    morphMessage () {
+        $("#top-fourth").empty();
+        $("#bottom-fourth").empty();
+        $("#middle-half").empty().append("<p>Your creature is growing!</p>");
     },
 
     selectButton (event) {
@@ -275,12 +281,27 @@ const game = {
             this.bloodlust++;
             $("#bloodlust-bar").val(`${this.bloodlust}`);
         };
-        if (this.time >= 30) {
-            this.time = 0;
-            this.age++;
-            $(".age").text(`age: ${this.age}`);
-            this.setUpStage();
-        };
+        if ($("#middle-half").hasClass("stage-1") || $("#middle-half").hasClass("stage-2")) {
+            if (this.time >= 30) {
+                this.hunger = 0;
+                this.boredom = 0;
+                this.bloodlust = 0;
+                this.morphMessage();
+            };
+            if (this.time >= 33) {
+                this.time = 0;
+                this.age++;
+                $(".age").text(`age: ${this.age}`);
+                this.setUpStage();
+            };
+        } else {
+            if (this.time >= 30) {
+                this.time = 0;
+                this.age++;
+                $(".age").text(`age: ${this.age}`);
+                this.setUpStage();
+            };
+        }
         if (this.hunger >= 10 || this.boredom >= 10 || this.bloodlust >= 10) {
             this.death();
         }
