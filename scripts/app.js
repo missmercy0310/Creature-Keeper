@@ -6,6 +6,7 @@ const game = {
     bloodlust: 0,
     time: 0,
     age: 1,
+
     letterIndex: 0,
     alphabet: ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'],
     letter1: 'A',
@@ -14,10 +15,19 @@ const game = {
     letter4: 'A',
     letter5: 'A',
     name: '',
+
     $arrow: $("#arrow"),
     $select: $("#select"),
     $power: $("#power"),
     $middle: $("#middle-half"),
+
+    $statSetup: `<section class="basic-info"><p class="name">name: ${this.name}</p><p class="age">age: ${this.age}</p></section><section class="stats"><i class="fas fa-utensils"><progress id="hunger-bar" value="0" max="10"></progress><i class="fas fa-meh"></i><progress id="boredom-bar" value="0" max="10"></progress><i class="fas fa-skull"></i><progress id="bloodlust-bar" value="0" max="10"></progress></section>`,
+    $interactSetup: `<p class="feed">feed</p><p class="play-with">play with</p><p class="satiate">satiate</p>`,
+
+    $beginMessage: `<h2>Welcome!</h2><p>please press <i class="fas fa-angle-double-right"></i></p>`,
+    $introMessage: `<p>You have been tasked with caring for a baby creature of your choice. Have fun with that!</p><p>press <i class="fas fa-angle-double-right"></i></p>`,
+    $deathMessage: `<i id="death" class="fas fa-skull"></i><p>You have displeased your creature.</p><p>You have died.</p>`,
+    $extroMessage: `<i id="extro" class="fas fa-smile-beam"></i><h4>Congrats!</h4><p>Your creature will now venture into the world and grow to an untenable size! Thanks for playing Creature Keeper!</p>`,
 
     powerButton (event) {
         if ($(event.target).hasClass("pressed") === false) {
@@ -50,7 +60,7 @@ const game = {
         this.letter4 = 'A';
         this.letter5 = 'A';
         this.name = '';
-        this.$middle.append(`<h2>Welcome!</h2><p>please press <i class="fas fa-angle-double-right"></i></p>`).addClass("begin");
+        this.$middle.append($beginMessage).addClass("begin");
     },
 
     naming () {
@@ -70,7 +80,7 @@ const game = {
             $("#top-fourth").empty();
             $("#bottom-fourth").empty();
             this.$middle.empty().removeClass(`stage-${this.age}`);
-            this.$middle.append(`<h4>Congrats!</h4><p>Your creature will now venture into the world and grow to an untenable size! Thanks for playing Creature Keeper!</p>`).addClass("extro");
+            this.$middle.append($extroMessage).addClass("extro");
         } else if (this.$middle.hasClass("naming")) {
             if (this.$middle.hasClass("mist")) {
                 this.$middle.empty();
@@ -92,8 +102,8 @@ const game = {
             this.hunger = 0;
             this.boredom = 0;
             this.bloodlust = 0;
-            $("#top-fourth").empty().append(`<section class="basic-info"><p class="name">name: ${this.name}</p><p class="age">age: ${this.age}</p></section><section class="stats"><i class="fas fa-utensils"><progress id="hunger-bar" value="0" max="10"></progress><i class="fas fa-meh"></i><progress id="boredom-bar" value="0" max="10"></progress><i class="fas fa-skull"></i><progress id="bloodlust-bar" value="0" max="10"></progress></section>`);
-            $("#bottom-fourth").empty().append(`<p class="feed">feed</p><p class="play-with">play with</p><p class="satiate">satiate</p>`);
+            $("#top-fourth").empty().append(this.$statSetup);
+            $("#bottom-fourth").empty().append(this.$interactSetup);
             $(".feed").css("color", "red").addClass("selected");
             clearInterval(this.timer);
             this.startTimer();
@@ -118,8 +128,8 @@ const game = {
             this.hunger = 0;
             this.boredom = 0;
             this.bloodlust = 0;
-            $("#top-fourth").empty().append(`<section class="basic-info"><p class="name">name: ${this.name}</p><p class="age">age: ${this.age}</p></section><section class="stats"><i class="fas fa-utensils"><progress id="hunger-bar" value="0" max="10"></progress><i class="fas fa-meh"></i><progress id="boredom-bar" value="0" max="10"></progress><i class="fas fa-skull"></i><progress id="bloodlust-bar" value="0" max="10"></progress></section>`);
-            $("#bottom-fourth").empty().append(`<p class="feed">feed</p><p class="play-with">play with</p><p class="satiate">satiate</p>`);
+            $("#top-fourth").empty().append(this.$statSetup);
+            $("#bottom-fourth").empty().append(this.$interactSetup);
             $(".feed").css("color", "red").addClass("selected");
             clearInterval(this.timer);
             this.startTimer();
@@ -144,8 +154,8 @@ const game = {
             this.hunger = 0;
             this.boredom = 0;
             this.bloodlust = 0;
-            $("#top-fourth").empty().append(`<section class="basic-info"><p class="name">name: ${this.name}</p><p class="age">age: ${this.age}</p></section><section class="stats"><i class="fas fa-utensils"><progress id="hunger-bar" value="0" max="10"></progress><i class="fas fa-meh"></i><progress id="boredom-bar" value="0" max="10"></progress><i class="fas fa-skull"></i><progress id="bloodlust-bar" value="0" max="10"></progress></section>`);
-            $("#bottom-fourth").empty().append(`<p class="feed">feed</p><p class="play-with">play with</p><p class="satiate">satiate</p>`);
+            $("#top-fourth").empty().append(this.$statSetup);
+            $("#bottom-fourth").empty().append(this.$interactSetup);
             $(".feed").css("color", "red").addClass("selected");
             clearInterval(this.timer);
             this.startTimer();
@@ -201,7 +211,7 @@ const game = {
     arrowButton (event) {
         if (this.$middle.hasClass("begin")) {
             this.$middle.empty().removeClass("begin");
-            this.$middle.append(`<p>You have been tasked with caring for a baby creature of your choice. Have fun with that!</p><p>press <i class="fas fa-angle-double-right"></i></p>`).addClass("intro");
+            this.$middle.append(this.$introMessage).addClass("intro");
         } else if (this.$middle.hasClass("intro")) {
             this.$middle.empty().removeClass("intro");
             $("#top-fourth").append("<h4>Choose your creature:</h4>");
@@ -342,7 +352,7 @@ const game = {
         $("#top-fourth").empty();
         $("#bottom-fourth").empty();
         this.$middle.empty().removeClass();
-        this.$middle.append(`<p>You have displeased your creature.</p><p>You have died.</p>`).addClass("death");
+        this.$middle.append(this.$deathMessage).addClass("death");
     }
 };
 
