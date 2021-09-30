@@ -167,3 +167,14 @@ i {
 img {
     width: 100%;
 }
+
+#death {
+    margin-top: 15px;
+    font-size: 40px;
+}
+
+#extro {
+    margin-top: 15px;
+    margin-bottom: 7px;
+    font-size: 40px;
+}
