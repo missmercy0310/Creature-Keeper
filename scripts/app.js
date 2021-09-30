@@ -68,8 +68,8 @@ const game = {
             this.bloodlust = 0;
             $("#top-fourth").empty();
             $("#bottom-fourth").empty();
-            $("#middle-half").empty().removeClass();
-            $("#middle-half").append(`<h4>Congrats!</h4><p>You have successfully taken care of your baby creature. It is now old enough to venture into the world and grow to an unjustifiable size!</p><p>Thanks for playing Creature Keeper!</p>`).addClass("extro");
+            $("#middle-half").empty().removeClass(`stage-${this.age}`);
+            $("#middle-half").append(`<h4>Congrats!</h4><p>Your creature will now venture into the world and grow to an untenable size! Thanks for playing Creature Keeper!</p>`).addClass("extro");
         } else if ($("#middle-half").hasClass("naming")) {
             if ($("#middle-half").hasClass("mist")) {
                 $("#middle-half").empty();
@@ -80,6 +80,12 @@ const game = {
             } else if ($("#middle-half").hasClass("eyeball")) {
                 $("#middle-half").empty();
                 $("#middle-half").append(`<img src="gifs/Eyeball Tamagotchi.gif">`)
+            } else if ($("#middle-half").hasClass("worm")) {
+                $("#middle-half").empty();
+                $("#middle-half").append(`<img src="gifs/Worm Tamagotchi.gif">`)
+            } else if ($("#middle-half").hasClass("coconut")) {
+                $("#middle-half").empty();
+                $("#middle-half").append(`<img src="images/Sentient Coconut Tamagotchi.png">`)
             };
             $("#middle-half").removeClass("naming").addClass(`stage-${this.age}`);
             this.hunger = 0;
@@ -100,6 +106,12 @@ const game = {
             } else if ($("#middle-half").hasClass("eyeball")) {
                 $("#middle-half").empty();
                 $("#middle-half").append(`<img src="gifs/Eyeball Tamagotchi Stage 2.gif">`)
+            } else if ($("#middle-half").hasClass("worm")) {
+                $("#middle-half").empty();
+                $("#middle-half").append(`<img src="gifs/Worm Tamagotchi Stage 2.gif">`)
+            } else if ($("#middle-half").hasClass("coconut")) {
+                $("#middle-half").empty();
+                $("#middle-half").append(`<img src="images/Sentient Coconut Tamagotchi Stage 2.png">`)
             };
             $("#middle-half").removeClass("stage-1").addClass(`stage-${this.age}`);
             this.hunger = 0;
@@ -120,6 +132,12 @@ const game = {
             } else if ($("#middle-half").hasClass("eyeball")) {
                 $("#middle-half").empty();
                 $("#middle-half").append(`<img src="gifs/Eyeball Tamagotchi Stage 3.gif">`)
+            } else if ($("#middle-half").hasClass("worm")) {
+                $("#middle-half").empty();
+                $("#middle-half").append(`<img src="gifs/Worm Tamagotchi Stage 3.gif">`)
+            } else if ($("#middle-half").hasClass("coconut")) {
+                $("#middle-half").empty();
+                $("#middle-half").append(`<img src="images/Sentient Coconut Tamagotchi Stage 3.png">`)
             };
             $("#middle-half").removeClass("stage-2").addClass(`stage-${this.age}`);
             this.hunger = 0;
@@ -131,6 +149,12 @@ const game = {
             clearInterval(this.timer);
             this.startTimer();
         }
+    },
+
+    morphMessage () {
+        $("#top-fourth").empty();
+        $("#bottom-fourth").empty();
+        $("#middle-half").empty().append("<p>Your creature is growing!</p>");
     },
 
     selectButton (event) {
@@ -192,6 +216,14 @@ const game = {
             $("#bottom-fourth").empty().append("<p>Eyeball Creature</p>");
         } else if ($("#middle-half").hasClass("eyeball") && $("#middle-half").hasClass("birth")) {
             $("#middle-half").empty().removeClass("eyeball");
+            $("#middle-half").append(`<img src="gifs/Worm Tamagotchi.gif">`).addClass("worm");
+            $("#bottom-fourth").empty().append("<p>Worm Creature</p>");
+        } else if ($("#middle-half").hasClass("worm") && $("#middle-half").hasClass("birth")) {
+            $("#middle-half").empty().removeClass("worm");
+            $("#middle-half").append(`<img src="images/Sentient Coconut Tamagotchi.png">`).addClass("coconut");
+            $("#bottom-fourth").empty().append("<p>Sentient Coconut</p>");
+        } else if ($("#middle-half").hasClass("coconut") && $("#middle-half").hasClass("birth")) {
+            $("#middle-half").empty().removeClass("coconut");
             $("#middle-half").append(`<img src="gifs/Mist Tamagotchi.gif">`).addClass("mist");
             $("#bottom-fourth").empty().append("<p>Mist Creature</p>");
         } else if ($("#middle-half").hasClass("naming")) {
@@ -275,12 +307,27 @@ const game = {
             this.bloodlust++;
             $("#bloodlust-bar").val(`${this.bloodlust}`);
         };
-        if (this.time >= 30) {
-            this.time = 0;
-            this.age++;
-            $(".age").text(`age: ${this.age}`);
-            this.setUpStage();
-        };
+        if ($("#middle-half").hasClass("stage-1") || $("#middle-half").hasClass("stage-2")) {
+            if (this.time >= 30) {
+                this.hunger = 0;
+                this.boredom = 0;
+                this.bloodlust = 0;
+                this.morphMessage();
+            };
+            if (this.time >= 33) {
+                this.time = 0;
+                this.age++;
+                $(".age").text(`age: ${this.age}`);
+                this.setUpStage();
+            };
+        } else {
+            if (this.time >= 30) {
+                this.time = 0;
+                this.age++;
+                $(".age").text(`age: ${this.age}`);
+                this.setUpStage();
+            };
+        }
         if (this.hunger >= 10 || this.boredom >= 10 || this.bloodlust >= 10) {
             this.death();
         }
@@ -301,3 +348,13 @@ const game = {
 game.power.click(game.powerButton.bind(game));
 game.select.click(game.selectButton.bind(game));
 game.arrow.click(game.arrowButton.bind(game));
+
+$(window).keypress(function(e) {
+    if (e.key == "p") {
+        game.power.click();
+    } else if (e.key == "Enter") {
+        game.select.click();
+    } else if (e.key == "d") {
+        game.arrow.click();
+    }
+})
