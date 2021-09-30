@@ -12,7 +12,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(65, 20, 61);
+    background-color: rgb(20, 47, 65);
 }
 
 main {
@@ -78,6 +78,14 @@ p {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    gap: 40px;
+}
+
+progress {
+    border-radius: 6px;
+    width: 80px;
+    height: 15px;
+    padding: 0px 10px 5px 10px;
 }
 
 #name {
