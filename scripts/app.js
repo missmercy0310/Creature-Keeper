@@ -69,7 +69,7 @@ const game = {
             $("#top-fourth").empty();
             $("#bottom-fourth").empty();
             $("#middle-half").empty().removeClass();
-            $("#middle-half").append(`<h4>Congrats!</h4><p>You have successfully taken care of your baby creature, and it is now old enough to venture out into the world!</p><p>Thanks for playing Creature Keeper!</p>`).addClass("extro");
+            $("#middle-half").append(`<h4>Congrats!</h4><p>You have successfully taken care of your baby creature. It is now old enough to venture into the world and grow to an unjustifiable size!</p><p>Thanks for playing Creature Keeper!</p>`).addClass("extro");
         } else if ($("#middle-half").hasClass("naming")) {
             if ($("#middle-half").hasClass("mist")) {
                 $("#middle-half").empty();
@@ -176,7 +176,7 @@ const game = {
     arrowButton (event) {
         if ($("#middle-half").hasClass("begin")) {
             $("#middle-half").empty().removeClass("begin");
-            $("#middle-half").append(`<p>You have been tasked with caring for a baby creature of your choice. Be sure it doesn't get too cranky!</p><p>press <i class="fas fa-angle-double-right"></i></p>`).addClass("intro");
+            $("#middle-half").append(`<p>You have been tasked with caring for a baby creature of your choice. Have fun with that!</p><p>press <i class="fas fa-angle-double-right"></i></p>`).addClass("intro");
         } else if ($("#middle-half").hasClass("intro")) {
             $("#middle-half").empty().removeClass("intro");
             $("#top-fourth").append("<h4>Choose your creature:</h4>");
@@ -294,7 +294,7 @@ const game = {
         $("#top-fourth").empty();
         $("#bottom-fourth").empty();
         $("#middle-half").empty().removeClass();
-        $("#middle-half").append(`<p>You failed to take care of your creature, and it got very angry with you!</p><p>You have died.</p>`).addClass("death");
+        $("#middle-half").append(`<p>You have displeased your creature.</p><p>You have died.</p>`).addClass("death");
     }
 };
 

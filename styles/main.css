@@ -153,6 +153,7 @@ button {
     font-size: 25px;
     margin-top: -20px;
     background-color: white;
+    cursor: pointer;
 }
 
 i {
