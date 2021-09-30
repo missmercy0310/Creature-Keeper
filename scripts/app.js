@@ -69,7 +69,7 @@ const game = {
             $("#top-fourth").empty();
             $("#bottom-fourth").empty();
             $("#middle-half").empty().removeClass(`stage-${this.age}`);
-            $("#middle-half").append(`<h4>Congrats!</h4><p>Your creature will now venture into the world and grow to an untenable size!</p><p>Thanks for playing Creature Keeper!</p>`).addClass("extro");
+            $("#middle-half").append(`<h4>Congrats!</h4><p>Your creature will now venture into the world and grow to an untenable size! Thanks for playing Creature Keeper!</p>`).addClass("extro");
         } else if ($("#middle-half").hasClass("naming")) {
             if ($("#middle-half").hasClass("mist")) {
                 $("#middle-half").empty();
@@ -322,3 +322,13 @@ const game = {
 game.power.click(game.powerButton.bind(game));
 game.select.click(game.selectButton.bind(game));
 game.arrow.click(game.arrowButton.bind(game));
+
+$(window).keypress(function(e) {
+    if (e.key == "p") {
+        game.power.click();
+    } else if (e.key == "Enter") {
+        game.select.click();
+    } else if (e.key == "d") {
+        game.arrow.click();
+    }
+})
