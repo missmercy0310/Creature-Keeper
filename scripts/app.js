@@ -80,6 +80,12 @@ const game = {
             } else if ($("#middle-half").hasClass("eyeball")) {
                 $("#middle-half").empty();
                 $("#middle-half").append(`<img src="gifs/Eyeball Tamagotchi.gif">`)
+            } else if ($("#middle-half").hasClass("worm")) {
+                $("#middle-half").empty();
+                $("#middle-half").append(`<img src="gifs/Worm Tamagotchi.gif">`)
+            } else if ($("#middle-half").hasClass("coconut")) {
+                $("#middle-half").empty();
+                $("#middle-half").append(`<img src="images/Sentient Coconut Tamagotchi.png">`)
             };
             $("#middle-half").removeClass("naming").addClass(`stage-${this.age}`);
             this.hunger = 0;
@@ -100,6 +106,12 @@ const game = {
             } else if ($("#middle-half").hasClass("eyeball")) {
                 $("#middle-half").empty();
                 $("#middle-half").append(`<img src="gifs/Eyeball Tamagotchi Stage 2.gif">`)
+            } else if ($("#middle-half").hasClass("worm")) {
+                $("#middle-half").empty();
+                $("#middle-half").append(`<img src="gifs/Worm Tamagotchi Stage 2.gif">`)
+            } else if ($("#middle-half").hasClass("coconut")) {
+                $("#middle-half").empty();
+                $("#middle-half").append(`<img src="images/Sentient Coconut Tamagotchi Stage 2.png">`)
             };
             $("#middle-half").removeClass("stage-1").addClass(`stage-${this.age}`);
             this.hunger = 0;
@@ -120,6 +132,12 @@ const game = {
             } else if ($("#middle-half").hasClass("eyeball")) {
                 $("#middle-half").empty();
                 $("#middle-half").append(`<img src="gifs/Eyeball Tamagotchi Stage 3.gif">`)
+            } else if ($("#middle-half").hasClass("worm")) {
+                $("#middle-half").empty();
+                $("#middle-half").append(`<img src="gifs/Worm Tamagotchi Stage 3.gif">`)
+            } else if ($("#middle-half").hasClass("coconut")) {
+                $("#middle-half").empty();
+                $("#middle-half").append(`<img src="images/Sentient Coconut Tamagotchi Stage 3.png">`)
             };
             $("#middle-half").removeClass("stage-2").addClass(`stage-${this.age}`);
             this.hunger = 0;
@@ -198,6 +216,14 @@ const game = {
             $("#bottom-fourth").empty().append("<p>Eyeball Creature</p>");
         } else if ($("#middle-half").hasClass("eyeball") && $("#middle-half").hasClass("birth")) {
             $("#middle-half").empty().removeClass("eyeball");
+            $("#middle-half").append(`<img src="gifs/Worm Tamagotchi.gif">`).addClass("worm");
+            $("#bottom-fourth").empty().append("<p>Worm Creature</p>");
+        } else if ($("#middle-half").hasClass("worm") && $("#middle-half").hasClass("birth")) {
+            $("#middle-half").empty().removeClass("worm");
+            $("#middle-half").append(`<img src="images/Sentient Coconut Tamagotchi.png">`).addClass("coconut");
+            $("#bottom-fourth").empty().append("<p>Sentient Coconut</p>");
+        } else if ($("#middle-half").hasClass("coconut") && $("#middle-half").hasClass("birth")) {
+            $("#middle-half").empty().removeClass("coconut");
             $("#middle-half").append(`<img src="gifs/Mist Tamagotchi.gif">`).addClass("mist");
             $("#bottom-fourth").empty().append("<p>Mist Creature</p>");
         } else if ($("#middle-half").hasClass("naming")) {
