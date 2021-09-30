@@ -27,6 +27,7 @@ const game = {
         } else {
             console.log("Powering Off...");
             $(event.target).removeClass("pressed");
+            clearInterval(this.timer);
             $("#screens").css("background-color","darkgray");
             $("#top-fourth").empty();
             $("#middle-half").empty();
@@ -84,7 +85,7 @@ const game = {
             this.hunger = 0;
             this.boredom = 0;
             this.bloodlust = 0;
-            $("#top-fourth").empty().append(`<section class="basic-info"><p class="name">name: ${this.name}</p><p class="age">age: ${this.age}</p></section><section class="stats"><i class="fas fa-utensils"></i><p class="hunger">${this.hunger}</p><i class="fas fa-meh"></i><p class="boredom">${this.boredom}</p><i class="fas fa-skull"></i><p class="bloodlust">${this.bloodlust}</p></section>`);
+            $("#top-fourth").empty().append(`<section class="basic-info"><p class="name">name: ${this.name}</p><p class="age">age: ${this.age}</p></section><section class="stats"><i class="fas fa-utensils"><progress id="hunger-bar" value="0" max="10"></progress><i class="fas fa-meh"></i><progress id="boredom-bar" value="0" max="10"></progress><i class="fas fa-skull"></i><progress id="bloodlust-bar" value="0" max="10"></progress></section>`);
             $("#bottom-fourth").empty().append(`<p class="feed">feed</p><p class="play-with">play with</p><p class="satiate">satiate</p>`);
             $(".feed").css("color", "red").addClass("selected");
             clearInterval(this.timer);
@@ -104,7 +105,7 @@ const game = {
             this.hunger = 0;
             this.boredom = 0;
             this.bloodlust = 0;
-            $("#top-fourth").empty().append(`<section class="basic-info"><p class="name">name: ${this.name}</p><p class="age">age: ${this.age}</p></section><section class="stats"><i class="fas fa-utensils"></i><p class="hunger">${this.hunger}</p><i class="fas fa-meh"></i><p class="boredom">${this.boredom}</p><i class="fas fa-skull"></i><p class="bloodlust">${this.bloodlust}</p></section>`);
+            $("#top-fourth").empty().append(`<section class="basic-info"><p class="name">name: ${this.name}</p><p class="age">age: ${this.age}</p></section><section class="stats"><i class="fas fa-utensils"><progress id="hunger-bar" value="0" max="10"></progress><i class="fas fa-meh"></i><progress id="boredom-bar" value="0" max="10"></progress><i class="fas fa-skull"></i><progress id="bloodlust-bar" value="0" max="10"></progress></section>`);
             $("#bottom-fourth").empty().append(`<p class="feed">feed</p><p class="play-with">play with</p><p class="satiate">satiate</p>`);
             $(".feed").css("color", "red").addClass("selected");
             clearInterval(this.timer);
@@ -124,7 +125,7 @@ const game = {
             this.hunger = 0;
             this.boredom = 0;
             this.bloodlust = 0;
-            $("#top-fourth").empty().append(`<section class="basic-info"><p class="name">name: ${this.name}</p><p class="age">age: ${this.age}</p></section><section class="stats"><i class="fas fa-utensils"></i><p class="hunger">${this.hunger}</p><i class="fas fa-meh"></i><p class="boredom">${this.boredom}</p><i class="fas fa-skull"></i><p class="bloodlust">${this.bloodlust}</p></section>`);
+            $("#top-fourth").empty().append(`<section class="basic-info"><p class="name">name: ${this.name}</p><p class="age">age: ${this.age}</p></section><section class="stats"><i class="fas fa-utensils"><progress id="hunger-bar" value="0" max="10"></progress><i class="fas fa-meh"></i><progress id="boredom-bar" value="0" max="10"></progress><i class="fas fa-skull"></i><progress id="bloodlust-bar" value="0" max="10"></progress></section>`);
             $("#bottom-fourth").empty().append(`<p class="feed">feed</p><p class="play-with">play with</p><p class="satiate">satiate</p>`);
             $(".feed").css("color", "red").addClass("selected");
             clearInterval(this.timer);
@@ -162,13 +163,13 @@ const game = {
             }
         } else if ($(".feed").hasClass("selected") && this.hunger > 0) {
             this.hunger--;
-            $(".hunger").text(`${this.hunger}`);
+            $("#hunger-bar").val(`${this.hunger}`);
         } else if ($(".play-with").hasClass("selected") && this.boredom > 0) {
             this.boredom--;
-            $(".boredom").text(`${this.boredom}`);
+            $("#boredom-bar").val(`${this.boredom}`);
         } else if ($(".satiate").hasClass("selected") && this.bloodlust > 0) {
             this.bloodlust--;
-            $(".bloodlust").text(`${this.bloodlust}`);
+            $("#bloodlust-bar").val(`${this.bloodlust}`);
         }
     },
 
@@ -268,11 +269,11 @@ const game = {
         console.log(this.time);
         if (this.time % 2 === 0) {
             this.hunger++;
-            $(".hunger").text(`${this.hunger}`);
+            $("#hunger-bar").val(`${this.hunger}`);
             this.boredom++;
-            $(".boredom").text(`${this.boredom}`);
+            $("#boredom-bar").val(`${this.boredom}`);
             this.bloodlust++;
-            $(".bloodlust").text(`${this.bloodlust}`);
+            $("#bloodlust-bar").val(`${this.bloodlust}`);
         };
         if (this.time >= 30) {
             this.time = 0;
