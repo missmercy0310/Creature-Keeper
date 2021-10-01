@@ -452,6 +452,7 @@ const game = {
         this.$bottom.empty().append(`<p>press <i class="fas fa-check"></i></p>`);
         this.$middle.empty().removeClass().append(this.$deathMessage).addClass("death");
         this.$collection.empty().removeClass("mist slime eyeball worm coconut");
+        $("#below").css("background-color","darkgray");
     },
 
     complete() {
