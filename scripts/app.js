@@ -386,23 +386,23 @@ const game = {
 
     complete() {
         $("#below").css("background-color","lightgrey");
-        if (this.$middle.hasClass("mist")) {
+        if (this.$middle.hasClass("mist") && this.$collection.hasClass("mist") === false) {
             this.$middle.removeClass("mist");
             this.$collection.addClass("mist").append('<i class="fas fa-cloud"></i>');
         };
-        if (this.$middle.hasClass("slime")) {
+        if (this.$middle.hasClass("slime") && this.$collection.hasClass("slime") === false) {
             this.$middle.removeClass("slime");
             this.$collection.addClass("slime").append('<i class="fas fa-disease"></i>');
         };
-        if (this.$middle.hasClass("eyeball")) {
+        if (this.$middle.hasClass("eyeball") && this.$collection.hasClass("eyeball") === false) {
             this.$middle.removeClass("eyeball");
             this.$collection.addClass("eyeball").append('<i class="fas fa-eye"></i>');
         };
-        if (this.$middle.hasClass("worm")) {
+        if (this.$middle.hasClass("worm") && this.$collection.hasClass("worm") === false) {
             this.$middle.removeClass("worm");
             this.$collection.addClass("worm").append('<i class="fas fa-wave-square"></i>');
         };
-        if (this.$middle.hasClass("coconut")) {
+        if (this.$middle.hasClass("coconut") && this.$collection.hasClass("coconut") === false) {
             this.$middle.removeClass("coconut");
             this.$collection.addClass("coconut").append('<i class="fas fa-bowling-ball"></i>');
         };
