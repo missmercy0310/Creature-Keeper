@@ -233,7 +233,7 @@ const game = {
     selectButton (event) {
         if (this.$middle.hasClass("birth")) {
             this.naming();
-        } else if (this.$middle.hasClass("extro")) {
+        } else if (this.$middle.hasClass("extro") || this.$middle.hasClass("death")) {
             this.creatureSelect();
         } else if (this.$middle.hasClass("naming")) {
             if ($(".letter-1").hasClass("selected")) {
@@ -280,6 +280,11 @@ const game = {
             this.$bottom.append("<p>Mist Creature</p>");
         } else if (this.$middle.hasClass("extro")) {
             this.$middle.empty().removeClass("extro");
+            this.$top.append("<h4>Choose your creature:</h4>");
+            this.$middle.append(`<img src="gifs/Mist Tamagotchi.gif">`).addClass("mist birth");
+            this.$bottom.empty().append("<p>Mist Creature</p>");
+        } else if (this.$middle.hasClass("death")) {
+            this.$middle.empty().removeClass("death");
             this.$top.append("<h4>Choose your creature:</h4>");
             this.$middle.append(`<img src="gifs/Mist Tamagotchi.gif">`).addClass("mist birth");
             this.$bottom.empty().append("<p>Mist Creature</p>");
@@ -444,9 +449,9 @@ const game = {
         this.boredom = 0;
         this.bloodlust = 0;
         this.$top.empty();
-        this.$bottom.empty();
-        this.$middle.empty().removeClass();
-        this.$middle.append(this.$deathMessage).addClass("death");
+        this.$bottom.empty().append(`<p>press <i class="fas fa-check"></i></p>`);
+        this.$middle.empty().removeClass().append(this.$deathMessage).addClass("death");
+        this.$collection.empty().removeClass("mist slime eyeball worm coconut");
     },
 
     complete() {
