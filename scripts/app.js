@@ -503,9 +503,12 @@ game.$arrow.click(game.arrowButton.bind(game));
 $(window).keypress(function(e) {
     if (e.key == "p") {
         game.$power.click();
+        $("#pKey").css("opacity", 0);
     } else if (e.key == "j") {
         game.$select.click();
+        $("#jKey").css("opacity", 0);
     } else if (e.key == "d") {
         game.$arrow.click();
+        $("#dKey").css("opacity", 0);
     }
 })
