@@ -230,6 +230,12 @@ const game = {
         this.$middle.empty().append("<p>Your creature is growing!</p>");
     },
 
+    finalMorphMessage () {
+        this.$top.empty();
+        this.$bottom.empty();
+        this.$middle.empty().append("<p>Your creature has reached adulthood!</p>");
+    },
+
     selectButton (event) {
         if (this.$middle.hasClass("birth")) {
             this.naming();
@@ -429,8 +435,14 @@ const game = {
                 $(".age").text(`age: ${this.age}`);
                 this.setUpStage();
             };
-        } else {
+        } else if (this.$middle.hasClass("stage-3")) {
             if (this.time >= 30) {
+                this.hunger = 0;
+                this.boredom = 0;
+                this.bloodlust = 0;
+                this.finalMorphMessage();
+            };
+            if (this.time >= 33) {
                 this.time = 0;
                 this.age++;
                 $(".age").text(`age: ${this.age}`);
