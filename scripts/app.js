@@ -19,7 +19,12 @@ const game = {
     $arrow: $("#arrow"),
     $select: $("#select"),
     $power: $("#power"),
+
+    $top: $("#top-fourth"),
     $middle: $("#middle-half"),
+    $bottom: $("#bottom-fourth"),
+
+    $collection: $("#collection"),
 
     $interactSetup: `<p class="feed">feed</p><p class="play-with">play with</p><p class="satiate">satiate</p>`,
 
@@ -27,21 +32,44 @@ const game = {
     $introMessage: `<p>You have been tasked with caring for a baby creature of your choice. Have fun with that!</p><p>press <i class="fas fa-angle-double-right"></i></p>`,
     $deathMessage: `<i id="death" class="fas fa-skull"></i><p>You have displeased your creature.</p><p>You have died.</p>`,
     $extroMessage: `<i id="extro" class="fas fa-smile-beam"></i><h4>Congrats!</h4><p>Your creature will now venture into the world and grow to an untenable size! Thanks for playing Creature Keeper!</p>`,
+    $superExtroMessage: `<i id="extro" class="fas fa-smile-beam"></i><h4>Congrats!</h4><p>You've unleashed all the creatures into the world! I hope you're proud of yourself!</p>`,
 
     powerButton (event) {
         if ($(event.target).hasClass("pressed") === false) {
             console.log("Powering On...");
             $(event.target).addClass("pressed");
             $("#screens").css("background-color","lightgrey");
+            if (this.$collection.hasClass("mist")) {
+                $("#below").css("background-color","lightgrey");
+                this.$collection.append('<i class="fas fa-cloud"></i>');
+            };
+            if (this.$collection.hasClass("slime")) {
+                $("#below").css("background-color","lightgrey");
+                this.$collection.append('<i class="fas fa-disease"></i>');
+            };
+            if (this.$collection.hasClass("eyeball")) {
+                $("#below").css("background-color","lightgrey");
+                this.$collection.append('<i class="fas fa-eye"></i>');
+            };
+            if (this.$collection.hasClass("worm")) {
+                $("#below").css("background-color","lightgrey");
+                this.$collection.append('<i class="fas fa-wave-square"></i>');
+            };
+            if (this.$collection.hasClass("coconut")) {
+                $("#below").css("background-color","lightgrey");
+                this.$collection.append('<i class="fas fa-bowling-ball"></i>');
+            };
             this.gameStart();
         } else {
             console.log("Powering Off...");
             $(event.target).removeClass("pressed");
             clearInterval(this.timer);
             $("#screens").css("background-color","darkgray");
-            $("#top-fourth").empty();
+            $("#below").css("background-color","darkgray");
+            this.$top.empty();
             this.$middle.empty();
-            $("#bottom-fourth").empty();
+            this.$bottom.empty();
+            this.$collection.empty();
         }
     },
 
@@ -63,23 +91,48 @@ const game = {
     },
 
     naming () {
-        $("#top-fourth").empty().append("<h4>Name your creature:</h4>");
-        $("#bottom-fourth").empty();
+        this.$top.empty().append("<h4>Name your creature:</h4>");
+        this.$bottom.empty();
         this.$middle.empty().removeClass("birth");
         this.$middle.append(`<div id="name"><p class="letter-1">${this.letter1}</p><p class="letter-2">${this.letter2}</p><p class="letter-3">${this.letter3}</p><p class="letter-4">${this.letter4}</p><p class="letter-5">${this.letter5}</p></div>`).addClass("naming");
         $(".letter-1").css("color", "red").addClass("selected");
     },
 
     setUpStage () {
-        if (this.age >= 4) {
+        if (this.age >= 4 && this.$collection.hasClass("mist") && this.$collection.hasClass("slime") && this.$collection.hasClass("eyeball") && this.$collection.hasClass("worm") && this.$collection.hasClass("coconut")) {
             clearInterval(this.timer);
             this.hunger = 0;
             this.boredom = 0;
             this.bloodlust = 0;
-            $("#top-fourth").empty();
-            $("#bottom-fourth").empty();
-            this.$middle.empty().removeClass(`stage-${this.age}`);
-            this.$middle.append(this.$extroMessage).addClass("extro");
+            this.time = 0;
+            this.age = 1;
+            this.letterIndex = 0;
+            this.letter1 = 'A';
+            this.letter2 = 'A';
+            this.letter3 = 'A';
+            this.letter4 = 'A';
+            this.letter5 = 'A';
+            this.name = '';
+            this.$top.empty();
+            this.$bottom.empty();
+            this.$middle.empty().removeClass(`stage-${this.age}`).append(this.$superExtroMessage).addClass("superExtro");
+        } else if (this.age >= 4) {
+            clearInterval(this.timer);
+            this.hunger = 0;
+            this.boredom = 0;
+            this.bloodlust = 0;
+            this.time = 0;
+            this.age = 1;
+            this.letterIndex = 0;
+            this.letter1 = 'A';
+            this.letter2 = 'A';
+            this.letter3 = 'A';
+            this.letter4 = 'A';
+            this.letter5 = 'A';
+            this.name = '';
+            this.$top.empty();
+            this.$bottom.empty().append(`<p>press <i class="fas fa-check"></i></p>`);
+            this.$middle.empty().removeClass(`stage-${this.age}`).append(this.$extroMessage).addClass("extro");
         } else if (this.$middle.hasClass("naming")) {
             if (this.$middle.hasClass("mist")) {
                 this.$middle.empty();
@@ -101,8 +154,8 @@ const game = {
             this.hunger = 0;
             this.boredom = 0;
             this.bloodlust = 0;
-            $("#top-fourth").empty().append(`<section class="basic-info"><p class="name">name: ${this.name}</p><p class="age">age: ${this.age}</p></section><section class="stats"><i class="fas fa-utensils"><progress id="hunger-bar" value="0" max="10"></progress><i class="fas fa-meh"></i><progress id="boredom-bar" value="0" max="10"></progress><i class="fas fa-skull"></i><progress id="bloodlust-bar" value="0" max="10"></progress></section>`);
-            $("#bottom-fourth").empty().append(this.$interactSetup);
+            this.$top.empty().append(`<section class="basic-info"><p class="name">name: ${this.name}</p><p class="age">age: ${this.age}</p></section><section class="stats"><i class="fas fa-utensils"><progress id="hunger-bar" value="0" max="10"></progress><i class="fas fa-meh"></i><progress id="boredom-bar" value="0" max="10"></progress><i class="fas fa-skull"></i><progress id="bloodlust-bar" value="0" max="10"></progress></section>`);
+            this.$bottom.empty().append(this.$interactSetup);
             $(".feed").css("color", "red").addClass("selected");
             clearInterval(this.timer);
             this.startTimer();
@@ -127,8 +180,8 @@ const game = {
             this.hunger = 0;
             this.boredom = 0;
             this.bloodlust = 0;
-            $("#top-fourth").empty().append(`<section class="basic-info"><p class="name">name: ${this.name}</p><p class="age">age: ${this.age}</p></section><section class="stats"><i class="fas fa-utensils"><progress id="hunger-bar" value="0" max="10"></progress><i class="fas fa-meh"></i><progress id="boredom-bar" value="0" max="10"></progress><i class="fas fa-skull"></i><progress id="bloodlust-bar" value="0" max="10"></progress></section>`);
-            $("#bottom-fourth").empty().append(this.$interactSetup);
+            this.$top.empty().append(`<section class="basic-info"><p class="name">name: ${this.name}</p><p class="age">age: ${this.age}</p></section><section class="stats"><i class="fas fa-utensils"><progress id="hunger-bar" value="0" max="10"></progress><i class="fas fa-meh"></i><progress id="boredom-bar" value="0" max="10"></progress><i class="fas fa-skull"></i><progress id="bloodlust-bar" value="0" max="10"></progress></section>`);
+            this.$bottom.empty().append(this.$interactSetup);
             $(".feed").css("color", "red").addClass("selected");
             clearInterval(this.timer);
             this.startTimer();
@@ -153,8 +206,8 @@ const game = {
             this.hunger = 0;
             this.boredom = 0;
             this.bloodlust = 0;
-            $("#top-fourth").empty().append(`<section class="basic-info"><p class="name">name: ${this.name}</p><p class="age">age: ${this.age}</p></section><section class="stats"><i class="fas fa-utensils"><progress id="hunger-bar" value="0" max="10"></progress><i class="fas fa-meh"></i><progress id="boredom-bar" value="0" max="10"></progress><i class="fas fa-skull"></i><progress id="bloodlust-bar" value="0" max="10"></progress></section>`);
-            $("#bottom-fourth").empty().append(this.$interactSetup);
+            this.$top.empty().append(`<section class="basic-info"><p class="name">name: ${this.name}</p><p class="age">age: ${this.age}</p></section><section class="stats"><i class="fas fa-utensils"><progress id="hunger-bar" value="0" max="10"></progress><i class="fas fa-meh"></i><progress id="boredom-bar" value="0" max="10"></progress><i class="fas fa-skull"></i><progress id="bloodlust-bar" value="0" max="10"></progress></section>`);
+            this.$bottom.empty().append(this.$interactSetup);
             $(".feed").css("color", "red").addClass("selected");
             clearInterval(this.timer);
             this.startTimer();
@@ -162,14 +215,16 @@ const game = {
     },
 
     morphMessage () {
-        $("#top-fourth").empty();
-        $("#bottom-fourth").empty();
+        this.$top.empty();
+        this.$bottom.empty();
         this.$middle.empty().append("<p>Your creature is growing!</p>");
     },
 
     selectButton (event) {
         if (this.$middle.hasClass("birth")) {
             this.naming();
+        } else if (this.$middle.hasClass("extro")) {
+            this.creatureSelect();
         } else if (this.$middle.hasClass("naming")) {
             if ($(".letter-1").hasClass("selected")) {
                 $(".letter-1").removeClass("selected").css("color", "black");
@@ -207,35 +262,48 @@ const game = {
         }
     },
 
+    creatureSelect () {
+        if (this.$middle.hasClass("intro")) {
+            this.$middle.empty().removeClass("intro");
+            this.$top.append("<h4>Choose your creature:</h4>");
+            this.$middle.append(`<img src="gifs/Mist Tamagotchi.gif">`).addClass("mist birth");
+            this.$bottom.append("<p>Mist Creature</p>");
+        } else if (this.$middle.hasClass("extro")) {
+            this.$middle.empty().removeClass("extro");
+            this.$top.append("<h4>Choose your creature:</h4>");
+            this.$middle.append(`<img src="gifs/Mist Tamagotchi.gif">`).addClass("mist birth");
+            this.$bottom.empty().append("<p>Mist Creature</p>");
+        }
+    },
+
     arrowButton (event) {
         if (this.$middle.hasClass("startup")) {
             this.$middle.empty().removeClass("startup");
             this.$middle.append(this.$introMessage).addClass("intro");
         } else if (this.$middle.hasClass("intro")) {
-            this.$middle.empty().removeClass("intro");
-            $("#top-fourth").append("<h4>Choose your creature:</h4>");
-            this.$middle.append(`<img src="gifs/Mist Tamagotchi.gif">`).addClass("mist birth");
-            $("#bottom-fourth").append("<p>Mist Creature</p>");
-        } else if (this.$middle.hasClass("mist") && this.$middle.hasClass("birth")) {
-            this.$middle.empty().removeClass("mist");
-            this.$middle.append(`<img src="gifs/Slime Tamagotchi.gif">`).addClass("slime");
-            $("#bottom-fourth").empty().append("<p>Slime Creature</p>");
-        } else if (this.$middle.hasClass("slime") && this.$middle.hasClass("birth")) {
-            this.$middle.empty().removeClass("slime");
-            this.$middle.append(`<img src="gifs/Eyeball Tamagotchi.gif">`).addClass("eyeball");
-            $("#bottom-fourth").empty().append("<p>Eyeball Creature</p>");
-        } else if (this.$middle.hasClass("eyeball") && this.$middle.hasClass("birth")) {
-            this.$middle.empty().removeClass("eyeball");
-            this.$middle.append(`<img src="gifs/Worm Tamagotchi.gif">`).addClass("worm");
-            $("#bottom-fourth").empty().append("<p>Worm Creature</p>");
-        } else if (this.$middle.hasClass("worm") && this.$middle.hasClass("birth")) {
-            this.$middle.empty().removeClass("worm");
-            this.$middle.append(`<img src="images/Sentient Coconut Tamagotchi.png">`).addClass("coconut");
-            $("#bottom-fourth").empty().append("<p>Sentient Coconut</p>");
-        } else if (this.$middle.hasClass("coconut") && this.$middle.hasClass("birth")) {
-            this.$middle.empty().removeClass("coconut");
-            this.$middle.append(`<img src="gifs/Mist Tamagotchi.gif">`).addClass("mist");
-            $("#bottom-fourth").empty().append("<p>Mist Creature</p>");
+            this.creatureSelect();
+        } else if (this.$middle.hasClass("birth")) {
+            if (this.$middle.hasClass("mist")) {
+                this.$middle.empty().removeClass("mist");
+                this.$middle.append(`<img src="gifs/Slime Tamagotchi.gif">`).addClass("slime");
+                this.$bottom.empty().append("<p>Slime Creature</p>");
+            } else if (this.$middle.hasClass("slime")) {
+                this.$middle.empty().removeClass("slime");
+                this.$middle.append(`<img src="gifs/Eyeball Tamagotchi.gif">`).addClass("eyeball");
+                this.$bottom.empty().append("<p>Eyeball Creature</p>");
+            } else if (this.$middle.hasClass("eyeball")) {
+                this.$middle.empty().removeClass("eyeball");
+                this.$middle.append(`<img src="gifs/Worm Tamagotchi.gif">`).addClass("worm");
+                this.$bottom.empty().append("<p>Worm Creature</p>");
+            } else if (this.$middle.hasClass("worm")) {
+                this.$middle.empty().removeClass("worm");
+                this.$middle.append(`<img src="images/Sentient Coconut Tamagotchi.png">`).addClass("coconut");
+                this.$bottom.empty().append("<p>Sentient Coconut</p>");
+            } else if (this.$middle.hasClass("coconut")) {
+                this.$middle.empty().removeClass("coconut");
+                this.$middle.append(`<img src="gifs/Mist Tamagotchi.gif">`).addClass("mist");
+                this.$bottom.empty().append("<p>Mist Creature</p>");
+            };
         } else if (this.$middle.hasClass("naming")) {
             if ($(".letter-1").hasClass("selected")) {
                 if (this.letterIndex >= 25) {
@@ -335,6 +403,7 @@ const game = {
                 this.time = 0;
                 this.age++;
                 $(".age").text(`age: ${this.age}`);
+                this.complete();
                 this.setUpStage();
             };
         }
@@ -348,11 +417,39 @@ const game = {
         this.hunger = 0;
         this.boredom = 0;
         this.bloodlust = 0;
-        $("#top-fourth").empty();
-        $("#bottom-fourth").empty();
+        this.$top.empty();
+        this.$bottom.empty();
         this.$middle.empty().removeClass();
         this.$middle.append(this.$deathMessage).addClass("death");
-    }
+    },
+
+    complete() {
+        if (this.$middle.hasClass("mist") && this.$collection.hasClass("mist") === false) {
+            $("#below").css("background-color","lightgrey");
+            this.$middle.removeClass("mist");
+            this.$collection.addClass("mist").append('<i class="fas fa-cloud"></i>');
+        };
+        if (this.$middle.hasClass("slime") && this.$collection.hasClass("slime") === false) {
+            $("#below").css("background-color","lightgrey");
+            this.$middle.removeClass("slime");
+            this.$collection.addClass("slime").append('<i class="fas fa-disease"></i>');
+        };
+        if (this.$middle.hasClass("eyeball") && this.$collection.hasClass("eyeball") === false) {
+            $("#below").css("background-color","lightgrey");
+            this.$middle.removeClass("eyeball");
+            this.$collection.addClass("eyeball").append('<i class="fas fa-eye"></i>');
+        };
+        if (this.$middle.hasClass("worm") && this.$collection.hasClass("worm") === false) {
+            $("#below").css("background-color","lightgrey");
+            this.$middle.removeClass("worm");
+            this.$collection.addClass("worm").append('<i class="fas fa-wave-square"></i>');
+        };
+        if (this.$middle.hasClass("coconut") && this.$collection.hasClass("coconut") === false) {
+            $("#below").css("background-color","lightgrey");
+            this.$middle.removeClass("coconut");
+            this.$collection.addClass("coconut").append('<i class="fas fa-bowling-ball"></i>');
+        };
+    },
 };
 
 game.$power.click(game.powerButton.bind(game));
