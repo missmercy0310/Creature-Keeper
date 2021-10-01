@@ -39,23 +39,23 @@ const game = {
             $(event.target).addClass("pressed");
             $("#screens").css("background-color","lightgrey");
             if (this.$collection.hasClass("mist")) {
-                this.$collection.css("background-color","lightgrey");
+                $("#below").css("background-color","lightgrey");
                 this.$collection.append('<i class="fas fa-cloud"></i>');
             };
             if (this.$collection.hasClass("slime")) {
-                this.$collection.css("background-color","lightgrey");
+                $("#below").css("background-color","lightgrey");
                 this.$collection.append('<i class="fas fa-disease"></i>');
             };
             if (this.$collection.hasClass("eyeball")) {
-                this.$collection.css("background-color","lightgrey");
+                $("#below").css("background-color","lightgrey");
                 this.$collection.append('<i class="fas fa-eye"></i>');
             };
             if (this.$collection.hasClass("worm")) {
-                this.$collection.css("background-color","lightgrey");
+                $("#below").css("background-color","lightgrey");
                 this.$collection.append('<i class="fas fa-wave-square"></i>');
             };
             if (this.$collection.hasClass("coconut")) {
-                this.$collection.css("background-color","lightgrey");
+                $("#below").css("background-color","lightgrey");
                 this.$collection.append('<i class="fas fa-bowling-ball"></i>');
             };
             this.gameStart();
@@ -406,24 +406,28 @@ const game = {
     },
 
     complete() {
-        $("#below").css("background-color","lightgrey");
         if (this.$middle.hasClass("mist") && this.$collection.hasClass("mist") === false) {
+            $("#below").css("background-color","lightgrey");
             this.$middle.removeClass("mist");
             this.$collection.addClass("mist").append('<i class="fas fa-cloud"></i>');
         };
         if (this.$middle.hasClass("slime") && this.$collection.hasClass("slime") === false) {
+            $("#below").css("background-color","lightgrey");
             this.$middle.removeClass("slime");
             this.$collection.addClass("slime").append('<i class="fas fa-disease"></i>');
         };
         if (this.$middle.hasClass("eyeball") && this.$collection.hasClass("eyeball") === false) {
+            $("#below").css("background-color","lightgrey");
             this.$middle.removeClass("eyeball");
             this.$collection.addClass("eyeball").append('<i class="fas fa-eye"></i>');
         };
         if (this.$middle.hasClass("worm") && this.$collection.hasClass("worm") === false) {
+            $("#below").css("background-color","lightgrey");
             this.$middle.removeClass("worm");
             this.$collection.addClass("worm").append('<i class="fas fa-wave-square"></i>');
         };
         if (this.$middle.hasClass("coconut") && this.$collection.hasClass("coconut") === false) {
+            $("#below").css("background-color","lightgrey");
             this.$middle.removeClass("coconut");
             this.$collection.addClass("coconut").append('<i class="fas fa-bowling-ball"></i>');
         };
