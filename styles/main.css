@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Gemunu+Libre&family=Ubuntu&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
 
 * {
     box-sizing: border-box;
@@ -191,10 +192,11 @@ i {
 }
 
 #letterKeys {
+    margin-top: -55px;
+    font-family: 'Permanent Marker', cursive;
     color: white;
     display: flex;
     gap: 42px;
-    transition: 1s;
 }
 
 img {
