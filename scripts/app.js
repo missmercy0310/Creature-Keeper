@@ -60,6 +60,16 @@ const game = {
                 this.$collection.append('<i class="fas fa-bowling-ball"></i>');
             };
             this.gameStart();
+        } else if ($(event.target).hasClass("pressed") && (this.$collection.hasClass("mist")) && (this.$collection.hasClass("slime")) && (this.$collection.hasClass("eyeball")) && (this.$collection.hasClass("worm")) && (this.$collection.hasClass("coconut"))) {
+            console.log("Powering Off...");
+            $(event.target).removeClass("pressed");
+            clearInterval(this.timer);
+            $("#screens").css("background-color","darkgray");
+            $("#below").css("background-color","darkgray");
+            this.$top.empty();
+            this.$middle.empty();
+            this.$bottom.empty();
+            this.$collection.empty().removeClass("mist slime eyeball worm coconut");
         } else {
             console.log("Powering Off...");
             $(event.target).removeClass("pressed");
