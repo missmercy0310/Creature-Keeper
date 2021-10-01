@@ -10,8 +10,10 @@ body {
     font-family: 'Ubuntu', sans-serif;
     height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 10px;
     background-color: rgb(20, 47, 65);
 }
 
@@ -186,6 +188,12 @@ i {
 
 #arrow {
     font-size: 28px;
+}
+
+#letterKeys {
+    color: white;
+    display: flex;
+    gap: 42px;
 }
 
 img {
