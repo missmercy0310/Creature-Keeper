@@ -388,12 +388,28 @@ const game = {
         this.time++;
         console.log(this.time);
         if (this.time % 2 === 0) {
-            this.hunger++;
-            $("#hunger-bar").val(`${this.hunger}`);
-            this.boredom++;
-            $("#boredom-bar").val(`${this.boredom}`);
-            this.bloodlust++;
-            $("#bloodlust-bar").val(`${this.bloodlust}`);
+            if (this.$middle.hasClass("stage-1")) {
+                this.hunger++;
+                $("#hunger-bar").val(`${this.hunger}`);
+                this.boredom+=0.75;
+                $("#boredom-bar").val(`${this.boredom}`);
+                this.bloodlust+=1.5;
+                $("#bloodlust-bar").val(`${this.bloodlust}`);
+            } else if (this.$middle.hasClass("stage-2")) {
+                this.hunger+=1.5;
+                $("#hunger-bar").val(`${this.hunger}`);
+                this.boredom++;
+                $("#boredom-bar").val(`${this.boredom}`);
+                this.bloodlust+=2;
+                $("#bloodlust-bar").val(`${this.bloodlust}`);
+            } else if (this.$middle.hasClass("stage-3")) {
+                this.hunger+=2;
+                $("#hunger-bar").val(`${this.hunger}`);
+                this.boredom+=1.5;
+                $("#boredom-bar").val(`${this.boredom}`);
+                this.bloodlust+=3;
+                $("#bloodlust-bar").val(`${this.bloodlust}`);
+            }
         };
         if (this.$middle.hasClass("stage-1") || this.$middle.hasClass("stage-2")) {
             if (this.time >= 30) {
