@@ -76,13 +76,13 @@ const game = {
     setUpStage () {
         if (this.age >= 4) {
             clearInterval(this.timer);
+            this.age = 1;
             this.hunger = 0;
             this.boredom = 0;
             this.bloodlust = 0;
             this.$top.empty();
-            this.$bottom.empty();
-            this.$middle.empty().removeClass(`stage-${this.age}`);
-            this.$middle.append(this.$extroMessage).addClass("extro");
+            this.$bottom.empty().append(`<p>press <i class="fas fa-check"></i></p>`);
+            this.$middle.empty().removeClass(`stage-${this.age}`).append(this.$extroMessage).addClass("extro");
             this.complete();
         } else if (this.$middle.hasClass("naming")) {
             if (this.$middle.hasClass("mist")) {
@@ -175,7 +175,7 @@ const game = {
         if (this.$middle.hasClass("birth")) {
             this.naming();
         } else if (this.$middle.hasClass("extro")) {
-            
+            this.creatureSelect();
         } else if (this.$middle.hasClass("naming")) {
             if ($(".letter-1").hasClass("selected")) {
                 $(".letter-1").removeClass("selected").css("color", "black");
@@ -213,35 +213,48 @@ const game = {
         }
     },
 
+    creatureSelect () {
+        if (this.$middle.hasClass("intro")) {
+            this.$middle.empty().removeClass("intro");
+            this.$top.append("<h4>Choose your creature:</h4>");
+            this.$middle.append(`<img src="gifs/Mist Tamagotchi.gif">`).addClass("mist birth");
+            this.$bottom.append("<p>Mist Creature</p>");
+        } else if (this.$middle.hasClass("extro")) {
+            this.$middle.empty().removeClass("extro");
+            this.$top.append("<h4>Choose your creature:</h4>");
+            this.$middle.append(`<img src="gifs/Mist Tamagotchi.gif">`).addClass("mist birth");
+            this.$bottom.empty().append("<p>Mist Creature</p>");
+        }
+    },
+
     arrowButton (event) {
         if (this.$middle.hasClass("startup")) {
             this.$middle.empty().removeClass("startup");
             this.$middle.append(this.$introMessage).addClass("intro");
         } else if (this.$middle.hasClass("intro")) {
-            this.$middle.empty().removeClass("intro");
-            this.$top.append("<h4>Choose your creature:</h4>");
-            this.$middle.append(`<img src="gifs/Mist Tamagotchi.gif">`).addClass("mist birth");
-            this.$bottom.append("<p>Mist Creature</p>");
-        } else if (this.$middle.hasClass("mist") && this.$middle.hasClass("birth")) {
-            this.$middle.empty().removeClass("mist");
-            this.$middle.append(`<img src="gifs/Slime Tamagotchi.gif">`).addClass("slime");
-            this.$bottom.empty().append("<p>Slime Creature</p>");
-        } else if (this.$middle.hasClass("slime") && this.$middle.hasClass("birth")) {
-            this.$middle.empty().removeClass("slime");
-            this.$middle.append(`<img src="gifs/Eyeball Tamagotchi.gif">`).addClass("eyeball");
-            this.$bottom.empty().append("<p>Eyeball Creature</p>");
-        } else if (this.$middle.hasClass("eyeball") && this.$middle.hasClass("birth")) {
-            this.$middle.empty().removeClass("eyeball");
-            this.$middle.append(`<img src="gifs/Worm Tamagotchi.gif">`).addClass("worm");
-            this.$bottom.empty().append("<p>Worm Creature</p>");
-        } else if (this.$middle.hasClass("worm") && this.$middle.hasClass("birth")) {
-            this.$middle.empty().removeClass("worm");
-            this.$middle.append(`<img src="images/Sentient Coconut Tamagotchi.png">`).addClass("coconut");
-            this.$bottom.empty().append("<p>Sentient Coconut</p>");
-        } else if (this.$middle.hasClass("coconut") && this.$middle.hasClass("birth")) {
-            this.$middle.empty().removeClass("coconut");
-            this.$middle.append(`<img src="gifs/Mist Tamagotchi.gif">`).addClass("mist");
-            this.$bottom.empty().append("<p>Mist Creature</p>");
+            this.creatureSelect();
+        } else if (this.$middle.hasClass("birth")) {
+            if (this.$middle.hasClass("mist")) {
+                this.$middle.empty().removeClass("mist");
+                this.$middle.append(`<img src="gifs/Slime Tamagotchi.gif">`).addClass("slime");
+                this.$bottom.empty().append("<p>Slime Creature</p>");
+            } else if (this.$middle.hasClass("slime")) {
+                this.$middle.empty().removeClass("slime");
+                this.$middle.append(`<img src="gifs/Eyeball Tamagotchi.gif">`).addClass("eyeball");
+                this.$bottom.empty().append("<p>Eyeball Creature</p>");
+            } else if (this.$middle.hasClass("eyeball")) {
+                this.$middle.empty().removeClass("eyeball");
+                this.$middle.append(`<img src="gifs/Worm Tamagotchi.gif">`).addClass("worm");
+                this.$bottom.empty().append("<p>Worm Creature</p>");
+            } else if (this.$middle.hasClass("worm")) {
+                this.$middle.empty().removeClass("worm");
+                this.$middle.append(`<img src="images/Sentient Coconut Tamagotchi.png">`).addClass("coconut");
+                this.$bottom.empty().append("<p>Sentient Coconut</p>");
+            } else if (this.$middle.hasClass("coconut")) {
+                this.$middle.empty().removeClass("coconut");
+                this.$middle.append(`<img src="gifs/Mist Tamagotchi.gif">`).addClass("mist");
+                this.$bottom.empty().append("<p>Mist Creature</p>");
+            };
         } else if (this.$middle.hasClass("naming")) {
             if ($(".letter-1").hasClass("selected")) {
                 if (this.letterIndex >= 25) {
