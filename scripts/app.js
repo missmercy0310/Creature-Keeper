@@ -38,6 +38,26 @@ const game = {
             console.log("Powering On...");
             $(event.target).addClass("pressed");
             $("#screens").css("background-color","lightgrey");
+            if (this.$collection.hasClass("mist")) {
+                this.$collection.css("background-color","lightgrey");
+                this.$collection.append('<i class="fas fa-cloud"></i>');
+            };
+            if (this.$collection.hasClass("slime")) {
+                this.$collection.css("background-color","lightgrey");
+                this.$collection.append('<i class="fas fa-disease"></i>');
+            };
+            if (this.$collection.hasClass("eyeball")) {
+                this.$collection.css("background-color","lightgrey");
+                this.$collection.append('<i class="fas fa-eye"></i>');
+            };
+            if (this.$collection.hasClass("worm")) {
+                this.$collection.css("background-color","lightgrey");
+                this.$collection.append('<i class="fas fa-wave-square"></i>');
+            };
+            if (this.$collection.hasClass("coconut")) {
+                this.$collection.css("background-color","lightgrey");
+                this.$collection.append('<i class="fas fa-bowling-ball"></i>');
+            };
             this.gameStart();
         } else {
             console.log("Powering Off...");
@@ -48,6 +68,7 @@ const game = {
             this.$top.empty();
             this.$middle.empty();
             this.$bottom.empty();
+            this.$collection.empty();
         }
     },
 
