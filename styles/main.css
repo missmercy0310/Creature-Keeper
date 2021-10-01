@@ -194,6 +194,7 @@ i {
     color: white;
     display: flex;
     gap: 42px;
+    transition: 1s;
 }
 
 img {
