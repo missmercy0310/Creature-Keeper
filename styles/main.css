@@ -37,7 +37,7 @@ h1 {
     text-align: center;
     color: white;
     margin-bottom: -30px;
-    margin-top: 20px;
+    margin-top: 10px;
     padding: 5px;
 }
 
@@ -140,7 +140,31 @@ progress::-webkit-progress-value {
     align-items: center;
 }
 
+#below {
+    margin-top: -40px;
+    border: 2px solid black;
+    border-radius: 10px;
+    display: flex;
+    width: 320px;
+    height: 40px;
+    background-color: darkgray;
+}
+
+#collection {
+    border: 1px solid gray;
+    border-radius: 9px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+#collection i {
+    padding-left: 37px;
+}
+
 #buttons {
+    margin-top: -10px;
     display: flex;
     justify-content: space-around;
     gap: 20px;
