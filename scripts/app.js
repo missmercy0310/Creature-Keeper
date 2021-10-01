@@ -32,6 +32,7 @@ const game = {
     $introMessage: `<p>You have been tasked with caring for a baby creature of your choice. Have fun with that!</p><p>press <i class="fas fa-angle-double-right"></i></p>`,
     $deathMessage: `<i id="death" class="fas fa-skull"></i><p>You have displeased your creature.</p><p>You have died.</p>`,
     $extroMessage: `<i id="extro" class="fas fa-smile-beam"></i><h4>Congrats!</h4><p>Your creature will now venture into the world and grow to an untenable size! Thanks for playing Creature Keeper!</p>`,
+    $superExtroMessage: `<i id="extro" class="fas fa-smile-beam"></i><h4>Congrats!</h4><p>You've unleashed all the creatures into the world! I hope you're proud of yourself!</p>`,
 
     powerButton (event) {
         if ($(event.target).hasClass("pressed") === false) {
@@ -98,7 +99,24 @@ const game = {
     },
 
     setUpStage () {
-        if (this.age >= 4) {
+        if (this.age >= 4 && this.$collection.hasClass("mist") && this.$collection.hasClass("slime") && this.$collection.hasClass("eyeball") && this.$collection.hasClass("worm") && this.$collection.hasClass("coconut")) {
+            clearInterval(this.timer);
+            this.hunger = 0;
+            this.boredom = 0;
+            this.bloodlust = 0;
+            this.time = 0;
+            this.age = 1;
+            this.letterIndex = 0;
+            this.letter1 = 'A';
+            this.letter2 = 'A';
+            this.letter3 = 'A';
+            this.letter4 = 'A';
+            this.letter5 = 'A';
+            this.name = '';
+            this.$top.empty();
+            this.$bottom.empty();
+            this.$middle.empty().removeClass(`stage-${this.age}`).append(this.$superExtroMessage).addClass("superExtro");
+        } else if (this.age >= 4) {
             clearInterval(this.timer);
             this.hunger = 0;
             this.boredom = 0;
@@ -115,7 +133,6 @@ const game = {
             this.$top.empty();
             this.$bottom.empty().append(`<p>press <i class="fas fa-check"></i></p>`);
             this.$middle.empty().removeClass(`stage-${this.age}`).append(this.$extroMessage).addClass("extro");
-            this.complete();
         } else if (this.$middle.hasClass("naming")) {
             if (this.$middle.hasClass("mist")) {
                 this.$middle.empty();
@@ -386,6 +403,7 @@ const game = {
                 this.time = 0;
                 this.age++;
                 $(".age").text(`age: ${this.age}`);
+                this.complete();
                 this.setUpStage();
             };
         }
