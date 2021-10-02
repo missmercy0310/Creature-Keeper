@@ -321,25 +321,11 @@ const game = {
             console.log("Powering On...");
             $(event.target).addClass("pressed");
             $screens.css("background-color","lightgrey");
-            if ($collection.hasClass("mist")) {
-                $below.css("background-color","lightgrey");
-                $collection.append('<i class="fas fa-cloud"></i>');
-            };
-            if ($collection.hasClass("slime")) {
-                $below.css("background-color","lightgrey");
-                $collection.append('<i class="fas fa-disease"></i>');
-            };
-            if ($collection.hasClass("eyeball")) {
-                $below.css("background-color","lightgrey");
-                $collection.append('<i class="fas fa-eye"></i>');
-            };
-            if ($collection.hasClass("worm")) {
-                $below.css("background-color","lightgrey");
-                $collection.append('<i class="fas fa-wave-square"></i>');
-            };
-            if ($collection.hasClass("coconut")) {
-                $below.css("background-color","lightgrey");
-                $collection.append('<i class="fas fa-bowling-ball"></i>');
+            for (let i = 0; i < this.creatures.length; i++) {
+                if ($collection.hasClass(this.creatures[i].class)) {
+                    $below.css("background-color","lightgrey");
+                    $collection.append(this.creatures[i].badge)
+                }
             };
             this.gameStart();
         } else if ($(event.target).hasClass("pressed") && $collection.hasClass("mist slime eyeball worm coconut")) {
