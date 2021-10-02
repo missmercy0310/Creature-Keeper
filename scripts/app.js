@@ -95,7 +95,7 @@ const game = {
                 $middle.empty().append(`<img src="gifs/Eyeball Tamagotchi.gif">`)
             } else if ($middle.hasClass("worm")) {
                 $middle.empty().append(`<img src="gifs/Worm Tamagotchi.gif">`)
-            } else if (this.$middle.hasClass("coconut")) {
+            } else if ($middle.hasClass("coconut")) {
                 $middle.empty().append(`<img src="images/Sentient Coconut Tamagotchi.png">`)
             };
             this.statReset();
@@ -304,19 +304,19 @@ const game = {
                 $collection.append('<i class="fas fa-bowling-ball"></i>');
             };
             this.gameStart();
-        } else if ($(event.target).hasClass("pressed") && ($collection.hasClass("mist")) && ($collection.hasClass("slime")) && ($collection.hasClass("eyeball")) && ($collection.hasClass("worm")) && ($collection.hasClass("coconut"))) {
+        } else if ($(event.target).hasClass("pressed") && $collection.hasClass("mist slime eyeball worm coconut")) {
             console.log("Powering Off...");
             $(event.target).removeClass("pressed");
-            clearInterval(this.timer);
-            $screens.css("background-color","darkgray");
-            $top.empty();
-            $middle.empty();
-            $bottom.empty();
-            $below.css("background-color","darkgray");
-            $collection.empty().removeClass("mist slime eyeball worm coconut");
+            this.powerOff();
+            $collection.removeClass("mist slime eyeball worm coconut");
         } else {
             console.log("Powering Off...");
             $(event.target).removeClass("pressed");
+            this.powerOff();
+        }
+    },
+
+    powerOff() {
             clearInterval(this.timer);
             $screens.css("background-color","darkgray");
             $top.empty();
@@ -324,7 +324,6 @@ const game = {
             $bottom.empty();
             $below.css("background-color","darkgray");
             $collection.empty();
-        }
     },
 
     /* Game Progress Stages */
