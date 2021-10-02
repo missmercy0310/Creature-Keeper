@@ -230,10 +230,16 @@ const game = {
         this.$middle.empty().append("<p>Your creature is growing!</p>");
     },
 
+    finalMorphMessage () {
+        this.$top.empty();
+        this.$bottom.empty();
+        this.$middle.empty().append("<p>Your creature has reached adulthood!</p>");
+    },
+
     selectButton (event) {
         if (this.$middle.hasClass("birth")) {
             this.naming();
-        } else if (this.$middle.hasClass("extro")) {
+        } else if (this.$middle.hasClass("extro") || this.$middle.hasClass("death")) {
             this.creatureSelect();
         } else if (this.$middle.hasClass("naming")) {
             if ($(".letter-1").hasClass("selected")) {
@@ -280,6 +286,11 @@ const game = {
             this.$bottom.append("<p>Mist Creature</p>");
         } else if (this.$middle.hasClass("extro")) {
             this.$middle.empty().removeClass("extro");
+            this.$top.append("<h4>Choose your creature:</h4>");
+            this.$middle.append(`<img src="gifs/Mist Tamagotchi.gif">`).addClass("mist birth");
+            this.$bottom.empty().append("<p>Mist Creature</p>");
+        } else if (this.$middle.hasClass("death")) {
+            this.$middle.empty().removeClass("death");
             this.$top.append("<h4>Choose your creature:</h4>");
             this.$middle.append(`<img src="gifs/Mist Tamagotchi.gif">`).addClass("mist birth");
             this.$bottom.empty().append("<p>Mist Creature</p>");
@@ -388,12 +399,28 @@ const game = {
         this.time++;
         console.log(this.time);
         if (this.time % 2 === 0) {
-            this.hunger++;
-            $("#hunger-bar").val(`${this.hunger}`);
-            this.boredom++;
-            $("#boredom-bar").val(`${this.boredom}`);
-            this.bloodlust++;
-            $("#bloodlust-bar").val(`${this.bloodlust}`);
+            if (this.$middle.hasClass("stage-1")) {
+                this.hunger++;
+                $("#hunger-bar").val(`${this.hunger}`);
+                this.boredom+=0.75;
+                $("#boredom-bar").val(`${this.boredom}`);
+                this.bloodlust+=1.5;
+                $("#bloodlust-bar").val(`${this.bloodlust}`);
+            } else if (this.$middle.hasClass("stage-2")) {
+                this.hunger+=1.5;
+                $("#hunger-bar").val(`${this.hunger}`);
+                this.boredom++;
+                $("#boredom-bar").val(`${this.boredom}`);
+                this.bloodlust+=2;
+                $("#bloodlust-bar").val(`${this.bloodlust}`);
+            } else if (this.$middle.hasClass("stage-3")) {
+                this.hunger+=2;
+                $("#hunger-bar").val(`${this.hunger}`);
+                this.boredom+=1.5;
+                $("#boredom-bar").val(`${this.boredom}`);
+                this.bloodlust+=3;
+                $("#bloodlust-bar").val(`${this.bloodlust}`);
+            }
         };
         if (this.$middle.hasClass("stage-1") || this.$middle.hasClass("stage-2")) {
             if (this.time >= 30) {
@@ -408,8 +435,14 @@ const game = {
                 $(".age").text(`age: ${this.age}`);
                 this.setUpStage();
             };
-        } else {
+        } else if (this.$middle.hasClass("stage-3")) {
             if (this.time >= 30) {
+                this.hunger = 0;
+                this.boredom = 0;
+                this.bloodlust = 0;
+                this.finalMorphMessage();
+            };
+            if (this.time >= 33) {
                 this.time = 0;
                 this.age++;
                 $(".age").text(`age: ${this.age}`);
@@ -428,9 +461,10 @@ const game = {
         this.boredom = 0;
         this.bloodlust = 0;
         this.$top.empty();
-        this.$bottom.empty();
-        this.$middle.empty().removeClass();
-        this.$middle.append(this.$deathMessage).addClass("death");
+        this.$bottom.empty().append(`<p>press <i class="fas fa-check"></i></p>`);
+        this.$middle.empty().removeClass().append(this.$deathMessage).addClass("death");
+        this.$collection.empty().removeClass("mist slime eyeball worm coconut");
+        $("#below").css("background-color","darkgray");
     },
 
     complete() {
