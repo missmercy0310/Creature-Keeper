@@ -35,6 +35,44 @@ const game = {
     $select: $("#select"),
     $power: $("#power"),
 
+    creatures: [
+        {
+            species: "Mist Creature",
+            class: "mist",
+            imgType: "gifs",
+            imgExtension: ".gif",
+            badge: '<i class="fas fa-cloud"></i>',
+        },
+        {
+            species: "Slime Creature",
+            class: "slime",
+            imgType: "gifs",
+            imgExtension: ".gif",
+            badge: '<i class="fas fa-disease"></i>',
+        },
+        {
+            species: "Eyeball Creature",
+            class: "eyeball",
+            imgType: "gifs",
+            imgExtension: ".gif",
+            badge: '<i class="fas fa-eye"></i>',
+        },
+        {
+            species: "Worm Creature",
+            class: "worm",
+            imgType: "gifs",
+            imgExtension: ".gif",
+            badge: '<i class="fas fa-wave-square"></i>',
+        },
+        {
+            species: "Sentient Coconut",
+            class: "coconut",
+            imgType: "images",
+            imgExtension: ".png",
+            badge: '<i class="fas fa-bowling-ball"></i>',
+        },
+    ],
+
     $interactSetup: `<p class="feed">feed</p><p class="play-with">play with</p><p class="satiate">satiate</p>`,
     $startupMessage: `<h2>Welcome!</h2><p>please press <i class="fas fa-angle-double-right"></i></p>`,
     $introMessage: `<p>You have been tasked with caring for a baby creature of your choice. Have fun with that!</p><p>press <i class="fas fa-angle-double-right"></i></p>`,
