@@ -398,30 +398,12 @@ const game = {
     },
 
     complete() {
-        if ($middle.hasClass("mist") && $collection.hasClass("mist") === false) {
-            $middle.removeClass("mist");
-            $below.css("background-color","lightgrey");
-            $collection.addClass("mist").append('<i class="fas fa-cloud"></i>');
-        };
-        if ($middle.hasClass("slime") && $collection.hasClass("slime") === false) {
-            $middle.removeClass("slime");
-            $below.css("background-color","lightgrey");
-            $collection.addClass("slime").append('<i class="fas fa-disease"></i>');
-        };
-        if ($middle.hasClass("eyeball") && $collection.hasClass("eyeball") === false) {
-            $middle.removeClass("eyeball");
-            $below.css("background-color","lightgrey");
-            $collection.addClass("eyeball").append('<i class="fas fa-eye"></i>');
-        };
-        if ($middle.hasClass("worm") && $collection.hasClass("worm") === false) {
-            $middle.removeClass("worm");
-            $below.css("background-color","lightgrey");
-            $collection.addClass("worm").append('<i class="fas fa-wave-square"></i>');
-        };
-        if ($middle.hasClass("coconut") && $collection.hasClass("coconut") === false) {
-            $middle.removeClass("coconut");
-            $below.css("background-color","lightgrey");
-            $collection.addClass("coconut").append('<i class="fas fa-bowling-ball"></i>');
+        for (let i = 0; i < this.creatures.length; i++) {
+            if ($middle.hasClass(this.creatures[i].class) && $collection.hasClass(this.creatures[i].class) === false) {
+                $middle.removeClass(this.creatures[i].class);
+                $below.css("background-color","lightgrey");
+                $collection.addClass(this.creatures[i].class).append(this.creatures[i].badge);
+            }
         };
     },
 
