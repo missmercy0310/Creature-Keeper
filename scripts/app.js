@@ -38,6 +38,7 @@ const game = {
     creatures: [
         {
             species: "Mist Creature",
+            nameTag: "<p>Mist Creature</p>",
             class: "mist",
             imgType: "gifs",
             imgExtension: ".gif",
@@ -45,6 +46,7 @@ const game = {
         },
         {
             species: "Slime Creature",
+            nameTag: "<p>Slime Creature</p>",
             class: "slime",
             imgType: "gifs",
             imgExtension: ".gif",
@@ -52,6 +54,7 @@ const game = {
         },
         {
             species: "Eyeball Creature",
+            nameTag: "<p>Eyeball Creature</p>",
             class: "eyeball",
             imgType: "gifs",
             imgExtension: ".gif",
@@ -59,6 +62,7 @@ const game = {
         },
         {
             species: "Worm Creature",
+            nameTag: "<p>Worm Creature</p>",
             class: "worm",
             imgType: "gifs",
             imgExtension: ".gif",
@@ -66,6 +70,7 @@ const game = {
         },
         {
             species: "Sentient Coconut",
+            nameTag: "<p>Sentient Coconut</p>",
             class: "coconut",
             imgType: "images",
             imgExtension: ".png",
