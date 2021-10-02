@@ -1,8 +1,8 @@
-/* Sanity Check */
+/* === Sanity Check === */
 
 console.log("Welcome to Creature Keeper");
 
-/* Variables */
+/* === Variables === */
 
 const $screens = $("#screens");
 const $top = $("#top-fourth");
@@ -11,9 +11,11 @@ const $bottom = $("#bottom-fourth");
 const $below = $("#below");
 const $collection = $("#collection");
 
-/* Game Object */
+/* === Game Object === */
 
 const game = {
+    /* === Obj Variables === */
+
     hunger: 0,
     boredom: 0,
     bloodlust: 0,
@@ -40,66 +42,14 @@ const game = {
     $extroMessage: `<i id="extro" class="fas fa-smile-beam"></i><h4>Congrats!</h4><p>Your creature will now venture into the world and grow to an untenable size! Thanks for playing Creature Keeper!</p>`,
     $superExtroMessage: `<i id="extro" class="fas fa-smile-beam"></i><h4>Congrats!</h4><p>You've unleashed all the creatures into the world! I hope you're proud of yourself!</p>`,
 
-    powerButton (event) {
-        if ($(event.target).hasClass("pressed") === false) {
-            console.log("Powering On...");
-            $(event.target).addClass("pressed");
-            $screens.css("background-color","lightgrey");
-            if ($collection.hasClass("mist")) {
-                $below.css("background-color","lightgrey");
-                $collection.append('<i class="fas fa-cloud"></i>');
-            };
-            if ($collection.hasClass("slime")) {
-                $below.css("background-color","lightgrey");
-                $collection.append('<i class="fas fa-disease"></i>');
-            };
-            if ($collection.hasClass("eyeball")) {
-                $below.css("background-color","lightgrey");
-                $collection.append('<i class="fas fa-eye"></i>');
-            };
-            if ($collection.hasClass("worm")) {
-                $below.css("background-color","lightgrey");
-                $collection.append('<i class="fas fa-wave-square"></i>');
-            };
-            if ($collection.hasClass("coconut")) {
-                $below.css("background-color","lightgrey");
-                $collection.append('<i class="fas fa-bowling-ball"></i>');
-            };
-            this.gameStart();
-        } else if ($(event.target).hasClass("pressed") && ($collection.hasClass("mist")) && ($collection.hasClass("slime")) && ($collection.hasClass("eyeball")) && ($collection.hasClass("worm")) && ($collection.hasClass("coconut"))) {
-            console.log("Powering Off...");
-            $(event.target).removeClass("pressed");
-            clearInterval(this.timer);
-            $screens.css("background-color","darkgray");
-            $top.empty();
-            $middle.empty();
-            $bottom.empty();
-            $below.css("background-color","darkgray");
-            $collection.empty().removeClass("mist slime eyeball worm coconut");
-        } else {
-            console.log("Powering Off...");
-            $(event.target).removeClass("pressed");
-            clearInterval(this.timer);
-            $screens.css("background-color","darkgray");
-            $top.empty();
-            $middle.empty();
-            $bottom.empty();
-            $below.css("background-color","darkgray");
-            $collection.empty();
-        }
-    },
+    /* === Methods === */
+
+    /* Setup */
 
     gameStart () {
         clearInterval(this.timer);
         this.gameReset();
         $middle.append(this.$startupMessage).addClass("startup");
-    },
-
-    naming () {
-        $top.empty().append("<h4>Name your creature:</h4>");
-        $middle.empty().removeClass("birth").append(`<div id="name"><p class="letter-1">${this.letter1}</p><p class="letter-2">${this.letter2}</p><p class="letter-3">${this.letter3}</p><p class="letter-4">${this.letter4}</p><p class="letter-5">${this.letter5}</p></div>`).addClass("naming");
-        $(".letter-1").css("color", "red").addClass("selected");
-        $bottom.empty();
     },
 
     gameReset() {
@@ -115,6 +65,12 @@ const game = {
         this.letter4 = 'A';
         this.letter5 = 'A';
         this.name = '';
+    },
+
+    statReset() {
+        this.hunger = 0;
+        this.boredom = 0;
+        this.bloodlust = 0;
     },
 
     setUpStage () {
@@ -190,75 +146,7 @@ const game = {
         }
     },
 
-    morphMessage () {
-        $top.empty();
-        $middle.empty().append("<p>Your creature is growing!</p>");
-        $bottom.empty();
-    },
-
-    finalMorphMessage () {
-        $top.empty();
-        $middle.empty().append("<p>Your creature has reached adulthood!</p>");
-        $bottom.empty();
-    },
-
-    selectButton () {
-        if ($middle.hasClass("birth")) {
-            this.naming();
-        } else if ($middle.hasClass("extro") || $middle.hasClass("death")) {
-            this.creatureSelect();
-        } else if ($middle.hasClass("naming")) {
-            if ($(".letter-1").hasClass("selected")) {
-                $(".letter-1").removeClass("selected").css("color", "black");
-                this.name += this.letter1;
-                $(".letter-2").css("color", "red").addClass("selected");
-                this.letterIndex = 0;
-            } else if ($(".letter-2").hasClass("selected")) {
-                $(".letter-2").removeClass("selected").css("color", "black");
-                this.name += this.letter2;
-                $(".letter-3").css("color", "red").addClass("selected");
-                this.letterIndex = 0;
-            } else if ($(".letter-3").hasClass("selected")) {
-                $(".letter-3").removeClass("selected").css("color", "black");
-                this.name += this.letter3;
-                $(".letter-4").css("color", "red").addClass("selected");
-                this.letterIndex = 0;
-            } else if ($(".letter-4").hasClass("selected")) {
-                $(".letter-4").removeClass("selected").css("color", "black");
-                this.name += this.letter4;
-                $(".letter-5").css("color", "red").addClass("selected");
-                this.letterIndex = 0;
-            } else if ($(".letter-5").hasClass("selected")) {
-                this.name += this.letter5;
-                this.setUpStage();
-            }
-        } else if ($(".feed").hasClass("selected") && this.hunger > 0) {
-            this.hunger--;
-            $("#hunger-bar").val(`${this.hunger}`);
-        } else if ($(".play-with").hasClass("selected") && this.boredom > 0) {
-            this.boredom--;
-            $("#boredom-bar").val(`${this.boredom}`);
-        } else if ($(".satiate").hasClass("selected") && this.bloodlust > 0) {
-            this.bloodlust--;
-            $("#bloodlust-bar").val(`${this.bloodlust}`);
-        }
-    },
-
-    creatureSelect () {
-        if ($middle.hasClass("intro")) {
-            $top.append("<h4>Choose your creature:</h4>");
-            $middle.empty().removeClass("intro").append(`<img src="gifs/Mist Tamagotchi.gif">`).addClass("mist birth");
-            $bottom.append("<p>Mist Creature</p>");
-        } else if ($middle.hasClass("extro")) {
-            $top.append("<h4>Choose your creature:</h4>");
-            $middle.empty().removeClass("extro").append(`<img src="gifs/Mist Tamagotchi.gif">`).addClass("mist birth");
-            $bottom.empty().append("<p>Mist Creature</p>");
-        } else if ($middle.hasClass("death")) {
-            $top.append("<h4>Choose your creature:</h4>");
-            $middle.empty().removeClass("death").append(`<img src="gifs/Mist Tamagotchi.gif">`).addClass("mist birth");
-            $bottom.empty().append("<p>Mist Creature</p>");
-        }
-    },
+    /* Buttons */
 
     arrowButton () {
         if ($middle.hasClass("startup")) {
@@ -348,10 +236,179 @@ const game = {
         }
     },
 
+    selectButton () {
+        if ($middle.hasClass("birth")) {
+            this.naming();
+        } else if ($middle.hasClass("extro") || $middle.hasClass("death")) {
+            this.creatureSelect();
+        } else if ($middle.hasClass("naming")) {
+            if ($(".letter-1").hasClass("selected")) {
+                $(".letter-1").removeClass("selected").css("color", "black");
+                this.name += this.letter1;
+                $(".letter-2").css("color", "red").addClass("selected");
+                this.letterIndex = 0;
+            } else if ($(".letter-2").hasClass("selected")) {
+                $(".letter-2").removeClass("selected").css("color", "black");
+                this.name += this.letter2;
+                $(".letter-3").css("color", "red").addClass("selected");
+                this.letterIndex = 0;
+            } else if ($(".letter-3").hasClass("selected")) {
+                $(".letter-3").removeClass("selected").css("color", "black");
+                this.name += this.letter3;
+                $(".letter-4").css("color", "red").addClass("selected");
+                this.letterIndex = 0;
+            } else if ($(".letter-4").hasClass("selected")) {
+                $(".letter-4").removeClass("selected").css("color", "black");
+                this.name += this.letter4;
+                $(".letter-5").css("color", "red").addClass("selected");
+                this.letterIndex = 0;
+            } else if ($(".letter-5").hasClass("selected")) {
+                this.name += this.letter5;
+                this.setUpStage();
+            }
+        } else if ($(".feed").hasClass("selected") && this.hunger > 0) {
+            this.hunger--;
+            $("#hunger-bar").val(`${this.hunger}`);
+        } else if ($(".play-with").hasClass("selected") && this.boredom > 0) {
+            this.boredom--;
+            $("#boredom-bar").val(`${this.boredom}`);
+        } else if ($(".satiate").hasClass("selected") && this.bloodlust > 0) {
+            this.bloodlust--;
+            $("#bloodlust-bar").val(`${this.bloodlust}`);
+        }
+    },
+
+    powerButton (event) {
+        if ($(event.target).hasClass("pressed") === false) {
+            console.log("Powering On...");
+            $(event.target).addClass("pressed");
+            $screens.css("background-color","lightgrey");
+            if ($collection.hasClass("mist")) {
+                $below.css("background-color","lightgrey");
+                $collection.append('<i class="fas fa-cloud"></i>');
+            };
+            if ($collection.hasClass("slime")) {
+                $below.css("background-color","lightgrey");
+                $collection.append('<i class="fas fa-disease"></i>');
+            };
+            if ($collection.hasClass("eyeball")) {
+                $below.css("background-color","lightgrey");
+                $collection.append('<i class="fas fa-eye"></i>');
+            };
+            if ($collection.hasClass("worm")) {
+                $below.css("background-color","lightgrey");
+                $collection.append('<i class="fas fa-wave-square"></i>');
+            };
+            if ($collection.hasClass("coconut")) {
+                $below.css("background-color","lightgrey");
+                $collection.append('<i class="fas fa-bowling-ball"></i>');
+            };
+            this.gameStart();
+        } else if ($(event.target).hasClass("pressed") && ($collection.hasClass("mist")) && ($collection.hasClass("slime")) && ($collection.hasClass("eyeball")) && ($collection.hasClass("worm")) && ($collection.hasClass("coconut"))) {
+            console.log("Powering Off...");
+            $(event.target).removeClass("pressed");
+            clearInterval(this.timer);
+            $screens.css("background-color","darkgray");
+            $top.empty();
+            $middle.empty();
+            $bottom.empty();
+            $below.css("background-color","darkgray");
+            $collection.empty().removeClass("mist slime eyeball worm coconut");
+        } else {
+            console.log("Powering Off...");
+            $(event.target).removeClass("pressed");
+            clearInterval(this.timer);
+            $screens.css("background-color","darkgray");
+            $top.empty();
+            $middle.empty();
+            $bottom.empty();
+            $below.css("background-color","darkgray");
+            $collection.empty();
+        }
+    },
+
+    /* Game Progress Stages */
+
+    naming () {
+        $top.empty().append("<h4>Name your creature:</h4>");
+        $middle.empty().removeClass("birth").append(`<div id="name"><p class="letter-1">${this.letter1}</p><p class="letter-2">${this.letter2}</p><p class="letter-3">${this.letter3}</p><p class="letter-4">${this.letter4}</p><p class="letter-5">${this.letter5}</p></div>`).addClass("naming");
+        $(".letter-1").css("color", "red").addClass("selected");
+        $bottom.empty();
+    },
+
+    creatureSelect () {
+        if ($middle.hasClass("intro")) {
+            $top.append("<h4>Choose your creature:</h4>");
+            $middle.empty().removeClass("intro").append(`<img src="gifs/Mist Tamagotchi.gif">`).addClass("mist birth");
+            $bottom.append("<p>Mist Creature</p>");
+        } else if ($middle.hasClass("extro")) {
+            $top.append("<h4>Choose your creature:</h4>");
+            $middle.empty().removeClass("extro").append(`<img src="gifs/Mist Tamagotchi.gif">`).addClass("mist birth");
+            $bottom.empty().append("<p>Mist Creature</p>");
+        } else if ($middle.hasClass("death")) {
+            $top.append("<h4>Choose your creature:</h4>");
+            $middle.empty().removeClass("death").append(`<img src="gifs/Mist Tamagotchi.gif">`).addClass("mist birth");
+            $bottom.empty().append("<p>Mist Creature</p>");
+        }
+    },
+
+    morphMessage () {
+        $top.empty();
+        $middle.empty().append("<p>Your creature is growing!</p>");
+        $bottom.empty();
+    },
+
+    finalMorphMessage () {
+        $top.empty();
+        $middle.empty().append("<p>Your creature has reached adulthood!</p>");
+        $bottom.empty();
+    },
+
+    death() {
+        clearInterval(this.timer);
+        this.statReset();
+        $top.empty();
+        $middle.empty().removeClass().append(this.$deathMessage).addClass("death");
+        $bottom.empty().append(`<p>press <i class="fas fa-check"></i></p>`);
+        $below.css("background-color","darkgray");
+        $collection.empty().removeClass("mist slime eyeball worm coconut");
+    },
+
+    complete() {
+        if ($middle.hasClass("mist") && $collection.hasClass("mist") === false) {
+            $middle.removeClass("mist");
+            $below.css("background-color","lightgrey");
+            $collection.addClass("mist").append('<i class="fas fa-cloud"></i>');
+        };
+        if ($middle.hasClass("slime") && $collection.hasClass("slime") === false) {
+            $middle.removeClass("slime");
+            $below.css("background-color","lightgrey");
+            $collection.addClass("slime").append('<i class="fas fa-disease"></i>');
+        };
+        if ($middle.hasClass("eyeball") && $collection.hasClass("eyeball") === false) {
+            $middle.removeClass("eyeball");
+            $below.css("background-color","lightgrey");
+            $collection.addClass("eyeball").append('<i class="fas fa-eye"></i>');
+        };
+        if ($middle.hasClass("worm") && $collection.hasClass("worm") === false) {
+            $middle.removeClass("worm");
+            $below.css("background-color","lightgrey");
+            $collection.addClass("worm").append('<i class="fas fa-wave-square"></i>');
+        };
+        if ($middle.hasClass("coconut") && $collection.hasClass("coconut") === false) {
+            $middle.removeClass("coconut");
+            $below.css("background-color","lightgrey");
+            $collection.addClass("coconut").append('<i class="fas fa-bowling-ball"></i>');
+        };
+    },
+
+    /* === Timer === */
     timer: null,
+
     startTimer() {
         this.timer = setInterval(this.increaseTime.bind(game), 1000);
     },
+
     increaseTime() {
         this.time++;
         console.log(this.time);
@@ -407,59 +464,15 @@ const game = {
             this.death();
         }
     },
-
-    death() {
-        clearInterval(this.timer);
-        this.statReset();
-        $top.empty();
-        $middle.empty().removeClass().append(this.$deathMessage).addClass("death");
-        $bottom.empty().append(`<p>press <i class="fas fa-check"></i></p>`);
-        $below.css("background-color","darkgray");
-        $collection.empty().removeClass("mist slime eyeball worm coconut");
-    },
-
-    complete() {
-        if ($middle.hasClass("mist") && $collection.hasClass("mist") === false) {
-            $middle.removeClass("mist");
-            $below.css("background-color","lightgrey");
-            $collection.addClass("mist").append('<i class="fas fa-cloud"></i>');
-        };
-        if ($middle.hasClass("slime") && $collection.hasClass("slime") === false) {
-            $middle.removeClass("slime");
-            $below.css("background-color","lightgrey");
-            $collection.addClass("slime").append('<i class="fas fa-disease"></i>');
-        };
-        if ($middle.hasClass("eyeball") && $collection.hasClass("eyeball") === false) {
-            $middle.removeClass("eyeball");
-            $below.css("background-color","lightgrey");
-            $collection.addClass("eyeball").append('<i class="fas fa-eye"></i>');
-        };
-        if ($middle.hasClass("worm") && $collection.hasClass("worm") === false) {
-            $middle.removeClass("worm");
-            $below.css("background-color","lightgrey");
-            $collection.addClass("worm").append('<i class="fas fa-wave-square"></i>');
-        };
-        if ($middle.hasClass("coconut") && $collection.hasClass("coconut") === false) {
-            $middle.removeClass("coconut");
-            $below.css("background-color","lightgrey");
-            $collection.addClass("coconut").append('<i class="fas fa-bowling-ball"></i>');
-        };
-    },
-
-    statReset() {
-        this.hunger = 0;
-        this.boredom = 0;
-        this.bloodlust = 0;
-    },
 };
 
-/* Event Listeners */
+/* === Event Listeners === */
 
 game.$power.click(game.powerButton.bind(game));
 game.$select.click(game.selectButton.bind(game));
 game.$arrow.click(game.arrowButton.bind(game));
 
-/* Key Binding */
+/* === Key Binding === */
 
 $(window).keypress(function(e) {
     if (e.key == "p") {
@@ -469,4 +482,4 @@ $(window).keypress(function(e) {
     } else if (e.key == "d") {
         game.$arrow.click();
     }
-})
+});
