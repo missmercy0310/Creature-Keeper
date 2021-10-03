@@ -24,11 +24,7 @@ const game = {
     age: 1,
     letterIndex: 0,
     alphabet: ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'],
-    letter1: 'A',
-    letter2: 'A',
-    letter3: 'A',
-    letter4: 'A',
-    letter5: 'A',
+    letters: ['A','A','A','A','A'],
     name: '',
 
     $arrow: $("#arrow"),
@@ -102,11 +98,7 @@ const game = {
         this.time = 0;
         this.age = 1;
         this.letterIndex = 0;
-        this.letter1 = 'A';
-        this.letter2 = 'A';
-        this.letter3 = 'A';
-        this.letter4 = 'A';
-        this.letter5 = 'A';
+        this.letters = ['A','A','A','A','A'];
         this.name = '';
     },
 
@@ -218,51 +210,51 @@ const game = {
                 if (this.letterIndex >= 25) {
                     this.letterIndex = 0;
                     $(".letter-1").text(`${this.alphabet[this.letterIndex]}`);
-                    this.letter1 = this.alphabet[this.letterIndex];
+                    this.letters[0] = this.alphabet[this.letterIndex];
                 } else {
                     this.letterIndex++;
                     $(".letter-1").text(`${this.alphabet[this.letterIndex]}`);
-                    this.letter1 = this.alphabet[this.letterIndex];
+                    this.letters[0] = this.alphabet[this.letterIndex];
                 }
             } else if ($(".letter-2").hasClass("selected")) {
                 if (this.letterIndex >= 25) {
                     this.letterIndex = 0;
                     $(".letter-2").text(`${this.alphabet[this.letterIndex]}`);
-                    this.letter2 = this.alphabet[this.letterIndex];
+                    this.letters[1] = this.alphabet[this.letterIndex];
                 } else {
                     this.letterIndex++;
                     $(".letter-2").text(`${this.alphabet[this.letterIndex]}`);
-                    this.letter2 = this.alphabet[this.letterIndex];
+                    this.letters[1] = this.alphabet[this.letterIndex];
                 }
             } else if ($(".letter-3").hasClass("selected")) {
                 if (this.letterIndex >= 25) {
                     this.letterIndex = 0;
                     $(".letter-3").text(`${this.alphabet[this.letterIndex]}`);
-                    this.letter3 = this.alphabet[this.letterIndex];
+                    this.letters[2] = this.alphabet[this.letterIndex];
                 } else {
                     this.letterIndex++;
                     $(".letter-3").text(`${this.alphabet[this.letterIndex]}`);
-                    this.letter3 = this.alphabet[this.letterIndex];
+                    this.letters[2] = this.alphabet[this.letterIndex];
                 }
             } else if ($(".letter-4").hasClass("selected")) {
                 if (this.letterIndex >= 25) {
                     this.letterIndex = 0;
                     $(".letter-4").text(`${this.alphabet[this.letterIndex]}`);
-                    this.letter4 = this.alphabet[this.letterIndex];
+                    this.letters[3] = this.alphabet[this.letterIndex];
                 } else {
                     this.letterIndex++;
                     $(".letter-4").text(`${this.alphabet[this.letterIndex]}`);
-                    this.letter4 = this.alphabet[this.letterIndex];
+                    this.letters[3] = this.alphabet[this.letterIndex];
                 }
             } else if ($(".letter-5").hasClass("selected")) {
                 if (this.letterIndex >= 25) {
                     this.letterIndex = 0;
                     $(".letter-5").text(`${this.alphabet[this.letterIndex]}`);
-                    this.letter5 = this.alphabet[this.letterIndex];
+                    this.letters[4] = this.alphabet[this.letterIndex];
                 } else {
                     this.letterIndex++;
                     $(".letter-5").text(`${this.alphabet[this.letterIndex]}`);
-                    this.letter5 = this.alphabet[this.letterIndex];
+                    this.letters[4] = this.alphabet[this.letterIndex];
                 }
             }
         } else if ($middle.hasClass(`stage-${this.age}`)) {
@@ -287,26 +279,26 @@ const game = {
         } else if ($middle.hasClass("naming")) {
             if ($(".letter-1").hasClass("selected")) {
                 $(".letter-1").removeClass("selected").css("color", "black");
-                this.name += this.letter1;
+                this.name += this.letters[0];
                 $(".letter-2").css("color", "red").addClass("selected");
                 this.letterIndex = 0;
             } else if ($(".letter-2").hasClass("selected")) {
                 $(".letter-2").removeClass("selected").css("color", "black");
-                this.name += this.letter2;
+                this.name += this.letters[1];
                 $(".letter-3").css("color", "red").addClass("selected");
                 this.letterIndex = 0;
             } else if ($(".letter-3").hasClass("selected")) {
                 $(".letter-3").removeClass("selected").css("color", "black");
-                this.name += this.letter3;
+                this.name += this.letters[2];
                 $(".letter-4").css("color", "red").addClass("selected");
                 this.letterIndex = 0;
             } else if ($(".letter-4").hasClass("selected")) {
                 $(".letter-4").removeClass("selected").css("color", "black");
-                this.name += this.letter4;
+                this.name += this.letters[3];
                 $(".letter-5").css("color", "red").addClass("selected");
                 this.letterIndex = 0;
             } else if ($(".letter-5").hasClass("selected")) {
-                this.name += this.letter5;
+                this.name += this.letters[4];
                 this.setUpStage();
             }
         } else if ($(".feed").hasClass("selected") && this.hunger > 0) {
@@ -359,7 +351,7 @@ const game = {
 
     naming () {
         $top.empty().append("<h4>Name your creature:</h4>");
-        $middle.empty().removeClass("birth").append(`<div id="name"><p class="letter-1">${this.letter1}</p><p class="letter-2">${this.letter2}</p><p class="letter-3">${this.letter3}</p><p class="letter-4">${this.letter4}</p><p class="letter-5">${this.letter5}</p></div>`).addClass("naming");
+        $middle.empty().removeClass("birth").append(`<div id="name"><p class="letter-1">${this.letters[0]}</p><p class="letter-2">${this.letters[1]}</p><p class="letter-3">${this.letters[2]}</p><p class="letter-4">${this.letters[3]}</p><p class="letter-5">${this.letters[4]}</p></div>`).addClass("naming");
         $(".letter-1").css("color", "red").addClass("selected");
         $bottom.empty();
     },
