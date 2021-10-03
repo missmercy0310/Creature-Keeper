@@ -36,40 +36,35 @@ const game = {
             species: "Mist Creature",
             nameTag: "<p>Mist Creature</p>",
             class: "mist",
-            imgType: "gifs",
-            imgExtension: ".gif",
+            imgs: [`<img src="gifs/Mist Tamagotchi.gif">`, `<img src="gifs/Mist Tamagotchi Stage 2.gif">`, `<img src="gifs/Mist Tamagotchi Stage 3.gif">`],
             badge: '<i class="fas fa-cloud"></i>',
         },
         {
             species: "Slime Creature",
             nameTag: "<p>Slime Creature</p>",
             class: "slime",
-            imgType: "gifs",
-            imgExtension: ".gif",
+            imgs: [`<img src="gifs/Slime Tamagotchi.gif">`, `<img src="gifs/Slime Tamagotchi Stage 2.gif">`, `<img src="gifs/Slime Tamagotchi Stage 3.gif">`],
             badge: '<i class="fas fa-disease"></i>',
         },
         {
             species: "Eyeball Creature",
             nameTag: "<p>Eyeball Creature</p>",
             class: "eyeball",
-            imgType: "gifs",
-            imgExtension: ".gif",
+            imgs: [`<img src="gifs/Eyeball Tamagotchi.gif">`, `<img src="gifs/Eyeball Tamagotchi Stage 2.gif">`, `<img src="gifs/Eyeball Tamagotchi Stage 3.gif">`],
             badge: '<i class="fas fa-eye"></i>',
         },
         {
             species: "Worm Creature",
             nameTag: "<p>Worm Creature</p>",
             class: "worm",
-            imgType: "gifs",
-            imgExtension: ".gif",
+            imgs: [`<img src="gifs/Worm Tamagotchi.gif">`, `<img src="gifs/Worm Tamagotchi Stage 2.gif">`, `<img src="gifs/Worm Tamagotchi Stage 3.gif">`],
             badge: '<i class="fas fa-wave-square"></i>',
         },
         {
             species: "Sentient Coconut",
             nameTag: "<p>Sentient Coconut</p>",
             class: "coconut",
-            imgType: "images",
-            imgExtension: ".png",
+            imgs: [`<img src="images/Sentient Coconut Tamagotchi.png">`, `<img src="images/Sentient Coconut Tamagotchi Stage 2.png">`, `<img src="images/Sentient Coconut Tamagotchi Stage 3.png">`],
             badge: '<i class="fas fa-bowling-ball"></i>',
         },
     ],
@@ -109,7 +104,7 @@ const game = {
     },
 
     setUpStage () {
-        if (this.age >= 4 && $collection.hasClass("mist") && $collection.hasClass("slime") && $collection.hasClass("eyeball") && $collection.hasClass("worm") && $collection.hasClass("coconut")) {
+        if (this.age >= 4 && $collection.hasClass("mist slime eyeball worm coconut")) {
             clearInterval(this.timer);
             this.gameReset();
             $top.empty();
@@ -121,36 +116,24 @@ const game = {
             $top.empty();
             $middle.empty().removeClass(`stage-${this.age}`).append(this.$extroMessage).addClass("extro");
             $bottom.empty().append(`<p>press <i class="fas fa-check"></i></p>`);
-        } else if ($middle.hasClass("naming")) {
-            if ($middle.hasClass("mist")) {
-                $middle.empty().append(`<img src="gifs/Mist Tamagotchi.gif">`)
-            } else if ($middle.hasClass("slime")) {
-                $middle.empty().append(`<img src="gifs/Slime Tamagotchi.gif">`)
-            } else if ($middle.hasClass("eyeball")) {
-                $middle.empty().append(`<img src="gifs/Eyeball Tamagotchi.gif">`)
-            } else if ($middle.hasClass("worm")) {
-                $middle.empty().append(`<img src="gifs/Worm Tamagotchi.gif">`)
-            } else if ($middle.hasClass("coconut")) {
-                $middle.empty().append(`<img src="images/Sentient Coconut Tamagotchi.png">`)
+        } else if ($middle.hasClass("stage-0")) {
+            for (let i = 0; i < this.creatures.length; i++) {
+                if ($middle.hasClass(this.creatures[i].class)) {
+                    $middle.empty().append(this.creatures[i].imgs[0]);
+                }
             };
             this.statReset();
             $top.empty().append(`<section class="basic-info"><p class="name">name: ${this.name}</p><p class="age">age: ${this.age}</p></section><section class="stats"><i class="fas fa-utensils"><progress id="hunger-bar" value="0" max="10"></progress><i class="fas fa-meh"></i><progress id="boredom-bar" value="0" max="10"></progress><i class="fas fa-skull"></i><progress id="bloodlust-bar" value="0" max="10"></progress></section>`);
-            $middle.removeClass("naming").addClass(`stage-${this.age}`);
+            $middle.removeClass("stage-0").addClass(`stage-${this.age}`);
             $bottom.empty().append(this.$interactSetup);
             $(".feed").css("color", "red").addClass("selected");
             clearInterval(this.timer);
             this.startTimer();
         } else if ($middle.hasClass("stage-1")) {
-            if ($middle.hasClass("mist")) {
-                $middle.empty().append(`<img src="gifs/Mist Tamagotchi Stage 2.gif">`)
-            } else if ($middle.hasClass("slime")) {
-                $middle.empty().append(`<img src="gifs/Slime Tamagotchi Stage 2.gif">`)
-            } else if ($middle.hasClass("eyeball")) {
-                $middle.empty().append(`<img src="gifs/Eyeball Tamagotchi Stage 2.gif">`)
-            } else if ($middle.hasClass("worm")) {
-                $middle.empty().append(`<img src="gifs/Worm Tamagotchi Stage 2.gif">`)
-            } else if ($middle.hasClass("coconut")) {
-                $middle.empty().append(`<img src="images/Sentient Coconut Tamagotchi Stage 2.png">`)
+            for (let i = 0; i < this.creatures.length; i++) {
+                if ($middle.hasClass(this.creatures[i].class)) {
+                    $middle.empty().append(this.creatures[i].imgs[1]);
+                }
             };
             this.statReset();
             $top.empty().append(`<section class="basic-info"><p class="name">name: ${this.name}</p><p class="age">age: ${this.age}</p></section><section class="stats"><i class="fas fa-utensils"><progress id="hunger-bar" value="0" max="10"></progress><i class="fas fa-meh"></i><progress id="boredom-bar" value="0" max="10"></progress><i class="fas fa-skull"></i><progress id="bloodlust-bar" value="0" max="10"></progress></section>`);
@@ -160,16 +143,10 @@ const game = {
             clearInterval(this.timer);
             this.startTimer();
         } else if ($middle.hasClass("stage-2")) {
-            if ($middle.hasClass("mist")) {
-                $middle.empty().append(`<img src="gifs/Mist Tamagotchi Stage 3.gif">`)
-            } else if ($middle.hasClass("slime")) {
-                $middle.empty().append(`<img src="gifs/Slime Tamagotchi Stage 3.gif">`)
-            } else if ($middle.hasClass("eyeball")) {
-                $middle.empty().append(`<img src="gifs/Eyeball Tamagotchi Stage 3.gif">`)
-            } else if ($middle.hasClass("worm")) {
-                $middle.empty().append(`<img src="gifs/Worm Tamagotchi Stage 3.gif">`)
-            } else if ($middle.hasClass("coconut")) {
-                $middle.empty().append(`<img src="images/Sentient Coconut Tamagotchi Stage 3.png">`)
+            for (let i = 0; i < this.creatures.length; i++) {
+                if ($middle.hasClass(this.creatures[i].class)) {
+                    $middle.empty().append(this.creatures[i].imgs[2]);
+                }
             };
             this.statReset();
             $top.empty().append(`<section class="basic-info"><p class="name">name: ${this.name}</p><p class="age">age: ${this.age}</p></section><section class="stats"><i class="fas fa-utensils"><progress id="hunger-bar" value="0" max="10"></progress><i class="fas fa-meh"></i><progress id="boredom-bar" value="0" max="10"></progress><i class="fas fa-skull"></i><progress id="bloodlust-bar" value="0" max="10"></progress></section>`);
@@ -205,56 +182,18 @@ const game = {
                 $middle.empty().removeClass("coconut").append(`<img src="gifs/Mist Tamagotchi.gif">`).addClass("mist");
                 $bottom.empty().append("<p>Mist Creature</p>");
             };
-        } else if ($middle.hasClass("naming")) {
-            if ($(".letter-1").hasClass("selected")) {
-                if (this.letterIndex >= 25) {
-                    this.letterIndex = 0;
-                    $(".letter-1").text(`${this.alphabet[this.letterIndex]}`);
-                    this.letters[0] = this.alphabet[this.letterIndex];
-                } else {
-                    this.letterIndex++;
-                    $(".letter-1").text(`${this.alphabet[this.letterIndex]}`);
-                    this.letters[0] = this.alphabet[this.letterIndex];
-                }
-            } else if ($(".letter-2").hasClass("selected")) {
-                if (this.letterIndex >= 25) {
-                    this.letterIndex = 0;
-                    $(".letter-2").text(`${this.alphabet[this.letterIndex]}`);
-                    this.letters[1] = this.alphabet[this.letterIndex];
-                } else {
-                    this.letterIndex++;
-                    $(".letter-2").text(`${this.alphabet[this.letterIndex]}`);
-                    this.letters[1] = this.alphabet[this.letterIndex];
-                }
-            } else if ($(".letter-3").hasClass("selected")) {
-                if (this.letterIndex >= 25) {
-                    this.letterIndex = 0;
-                    $(".letter-3").text(`${this.alphabet[this.letterIndex]}`);
-                    this.letters[2] = this.alphabet[this.letterIndex];
-                } else {
-                    this.letterIndex++;
-                    $(".letter-3").text(`${this.alphabet[this.letterIndex]}`);
-                    this.letters[2] = this.alphabet[this.letterIndex];
-                }
-            } else if ($(".letter-4").hasClass("selected")) {
-                if (this.letterIndex >= 25) {
-                    this.letterIndex = 0;
-                    $(".letter-4").text(`${this.alphabet[this.letterIndex]}`);
-                    this.letters[3] = this.alphabet[this.letterIndex];
-                } else {
-                    this.letterIndex++;
-                    $(".letter-4").text(`${this.alphabet[this.letterIndex]}`);
-                    this.letters[3] = this.alphabet[this.letterIndex];
-                }
-            } else if ($(".letter-5").hasClass("selected")) {
-                if (this.letterIndex >= 25) {
-                    this.letterIndex = 0;
-                    $(".letter-5").text(`${this.alphabet[this.letterIndex]}`);
-                    this.letters[4] = this.alphabet[this.letterIndex];
-                } else {
-                    this.letterIndex++;
-                    $(".letter-5").text(`${this.alphabet[this.letterIndex]}`);
-                    this.letters[4] = this.alphabet[this.letterIndex];
+        } else if ($middle.hasClass("stage-0")) {
+            for (let i = 0; i < this.letters.length; i++) {
+                if ($(`.letter-${i+1}`).hasClass("selected")) {
+                    if (this.letterIndex >= 25) {
+                        this.letterIndex = 0;
+                        $(`.letter-${i+1}`).text(`${this.alphabet[this.letterIndex]}`);
+                        this.letters[i] = this.alphabet[this.letterIndex];
+                    } else {
+                        this.letterIndex++;
+                        $(`.letter-${i+1}`).text(`${this.alphabet[this.letterIndex]}`);
+                        this.letters[i] = this.alphabet[this.letterIndex];
+                    }
                 }
             }
         } else if ($middle.hasClass(`stage-${this.age}`)) {
@@ -273,10 +212,10 @@ const game = {
 
     selectButton () {
         if ($middle.hasClass("birth")) {
-            this.naming();
+            this.stage0();
         } else if ($middle.hasClass("extro") || $middle.hasClass("death")) {
             this.creatureSelect();
-        } else if ($middle.hasClass("naming")) {
+        } else if ($middle.hasClass("stage-0")) {
             if ($(".letter-1").hasClass("selected")) {
                 $(".letter-1").removeClass("selected").css("color", "black");
                 this.name += this.letters[0];
@@ -349,9 +288,9 @@ const game = {
 
     /* Game Progress Stages */
 
-    naming () {
+    stage0 () {
         $top.empty().append("<h4>Name your creature:</h4>");
-        $middle.empty().removeClass("birth").append(`<div id="name"><p class="letter-1">${this.letters[0]}</p><p class="letter-2">${this.letters[1]}</p><p class="letter-3">${this.letters[2]}</p><p class="letter-4">${this.letters[3]}</p><p class="letter-5">${this.letters[4]}</p></div>`).addClass("naming");
+        $middle.empty().removeClass("birth").append(`<div id="name"><p class="letter-1">${this.letters[0]}</p><p class="letter-2">${this.letters[1]}</p><p class="letter-3">${this.letters[2]}</p><p class="letter-4">${this.letters[3]}</p><p class="letter-5">${this.letters[4]}</p></div>`).addClass("stage-0");
         $(".letter-1").css("color", "red").addClass("selected");
         $bottom.empty();
     },
