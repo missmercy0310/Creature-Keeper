@@ -4,12 +4,12 @@ console.log("Welcome to Creature Keeper");
 
 /* === Variables === */
 
-const $screens = $("#screens");
-const $top = $("#top-fourth");
-const $middle = $("#middle-half");
-const $bottom = $("#bottom-fourth");
-const $below = $("#below");
-const $collection = $("#collection");
+const $screens = $(".top-screen");
+const $top = $(".top-fourth");
+const $middle = $(".middle-half");
+const $bottom = $(".bottom-fourth");
+const $below = $(".bottom-screen");
+const $collection = $(".collection");
 
 /* === Game Object === */
 
@@ -32,9 +32,9 @@ const game = {
     name: '',
 
     // Dom Elements
-    $arrow: $("#arrow"),
-    $select: $("#select"),
-    $power: $("#power"),
+    $arrow: $(".arrow"),
+    $select: $(".select"),
+    $power: $(".power"),
 
     // Creatures
     creatureIndex: 0,
@@ -80,9 +80,9 @@ const game = {
     $interactSetup: `<p class="feed">feed</p><p class="play-with">play with</p><p class="satiate">satiate</p>`,
     $startupMessage: `<h2>Welcome!</h2><p>please press <i class="fas fa-angle-double-right"></i></p>`,
     $introMessage: `<p>You have been tasked with caring for a baby creature of your choice. Have fun with that!</p><p>press <i class="fas fa-angle-double-right"></i></p>`,
-    $deathMessage: `<i id="death" class="fas fa-skull"></i><p>You have displeased your creature.</p><p>You have died.</p>`,
-    $extroMessage: `<i id="extro" class="fas fa-smile-beam"></i><h4>Congrats!</h4><p>Your creature will now venture into the world and grow to an untenable size! Thanks for playing Creature Keeper!</p>`,
-    $superExtroMessage: `<i id="extro" class="fas fa-smile-beam"></i><h4>Congrats!</h4><p>You've unleashed all the creatures into the world! I hope you're proud of yourself!</p>`,
+    $deathMessage: `<i class="fas fa-skull death-icon"></i><p>You have displeased your creature.</p><p>You have died.</p>`,
+    $extroMessage: `<i class="fas fa-smile-beam extro-icon"></i><h4>Congrats!</h4><p>Your creature will now venture into the world and grow to an untenable size! Thanks for playing Creature Keeper!</p>`,
+    $superExtroMessage: `<i class="fas fa-smile-beam extro-icon"></i><h4>Congrats!</h4><p>You've unleashed all the creatures into the world! I hope you're proud of yourself!</p>`,
 
     /* === Methods === */
 
@@ -129,7 +129,7 @@ const game = {
                 }
             };
             this.statReset();
-            $top.empty().append(`<section class="basic-info"><p class="name">name: ${this.name}</p><p class="age">age: ${this.age}</p></section><section class="stats"><i class="fas fa-utensils"><progress id="hunger-bar" value="0" max="10"></progress><i class="fas fa-meh"></i><progress id="boredom-bar" value="0" max="10"></progress><i class="fas fa-skull"></i><progress id="bloodlust-bar" value="0" max="10"></progress></section>`);
+            $top.empty().append(`<section class="basic-info"><p class="name">name: ${this.name}</p><p class="age">age: ${this.age}</p></section><section class="stats"><i class="fas fa-utensils"><progress class="hunger-bar" value="0" max="10"></progress><i class="fas fa-meh"></i><progress class="boredom-bar" value="0" max="10"></progress><i class="fas fa-skull"></i><progress class="bloodlust-bar" value="0" max="10"></progress></section>`);
             $middle.removeClass("stage-0").addClass(`stage-${this.age}`);
             $bottom.empty().append(this.$interactSetup);
             $(".feed").css("color", "red").addClass("selected");
@@ -142,7 +142,7 @@ const game = {
                 }
             };
             this.statReset();
-            $top.empty().append(`<section class="basic-info"><p class="name">name: ${this.name}</p><p class="age">age: ${this.age}</p></section><section class="stats"><i class="fas fa-utensils"><progress id="hunger-bar" value="0" max="10"></progress><i class="fas fa-meh"></i><progress id="boredom-bar" value="0" max="10"></progress><i class="fas fa-skull"></i><progress id="bloodlust-bar" value="0" max="10"></progress></section>`);
+            $top.empty().append(`<section class="basic-info"><p class="name">name: ${this.name}</p><p class="age">age: ${this.age}</p></section><section class="stats"><i class="fas fa-utensils"><progress class="hunger-bar" value="0" max="10"></progress><i class="fas fa-meh"></i><progress class="boredom-bar" value="0" max="10"></progress><i class="fas fa-skull"></i><progress class="bloodlust-bar" value="0" max="10"></progress></section>`);
             $middle.removeClass("stage-1").addClass(`stage-${this.age}`);
             $bottom.empty().append(this.$interactSetup);
             $(".feed").css("color", "red").addClass("selected");
@@ -155,7 +155,7 @@ const game = {
                 }
             };
             this.statReset();
-            $top.empty().append(`<section class="basic-info"><p class="name">name: ${this.name}</p><p class="age">age: ${this.age}</p></section><section class="stats"><i class="fas fa-utensils"><progress id="hunger-bar" value="0" max="10"></progress><i class="fas fa-meh"></i><progress id="boredom-bar" value="0" max="10"></progress><i class="fas fa-skull"></i><progress id="bloodlust-bar" value="0" max="10"></progress></section>`);
+            $top.empty().append(`<section class="basic-info"><p class="name">name: ${this.name}</p><p class="age">age: ${this.age}</p></section><section class="stats"><i class="fas fa-utensils"><progress class="hunger-bar" value="0" max="10"></progress><i class="fas fa-meh"></i><progress class="boredom-bar" value="0" max="10"></progress><i class="fas fa-skull"></i><progress class="bloodlust-bar" value="0" max="10"></progress></section>`);
             $middle.removeClass("stage-2").addClass(`stage-${this.age}`);
             $bottom.empty().append(this.$interactSetup);
             $(".feed").css("color", "red").addClass("selected");
@@ -248,13 +248,13 @@ const game = {
             }
         } else if ($(".feed").hasClass("selected") && this.hunger > 0) {
             this.hunger--;
-            $("#hunger-bar").val(`${this.hunger}`);
+            $(".hunger-bar").val(`${this.hunger}`);
         } else if ($(".play-with").hasClass("selected") && this.boredom > 0) {
             this.boredom--;
-            $("#boredom-bar").val(`${this.boredom}`);
+            $(".boredom-bar").val(`${this.boredom}`);
         } else if ($(".satiate").hasClass("selected") && this.bloodlust > 0) {
             this.bloodlust--;
-            $("#bloodlust-bar").val(`${this.bloodlust}`);
+            $(".bloodlust-bar").val(`${this.bloodlust}`);
         }
     },
 
@@ -296,7 +296,7 @@ const game = {
 
     stage0 () {
         $top.empty().append("<h4>Name your creature:</h4>");
-        $middle.empty().removeClass("birth").append(`<div id="name"><p class="letter-1">${this.letters[0]}</p><p class="letter-2">${this.letters[1]}</p><p class="letter-3">${this.letters[2]}</p><p class="letter-4">${this.letters[3]}</p><p class="letter-5">${this.letters[4]}</p></div>`).addClass("stage-0");
+        $middle.empty().removeClass("birth").append(`<div class="naming"><p class="letter-1">${this.letters[0]}</p><p class="letter-2">${this.letters[1]}</p><p class="letter-3">${this.letters[2]}</p><p class="letter-4">${this.letters[3]}</p><p class="letter-5">${this.letters[4]}</p></div>`).addClass("stage-0");
         $(".letter-1").css("color", "red").addClass("selected");
         $bottom.empty();
     },
@@ -333,7 +333,7 @@ const game = {
         clearInterval(this.timer);
         this.statReset();
         $top.empty();
-        $middle.empty().removeClass().append(this.$deathMessage).addClass("death");
+        $middle.empty().removeClass(`stage-${this.age} mist slime eyeball worm coconut`).append(this.$deathMessage).addClass("death");
         $bottom.empty().append(`<p>press <i class="fas fa-check"></i></p>`);
         $below.css("background-color","darkgray");
         $collection.empty().removeClass("mist slime eyeball worm coconut");
@@ -365,25 +365,25 @@ const game = {
         if (this.time % 2 === 0) {
             if ($middle.hasClass("stage-1")) {
                 this.hunger++;
-                $("#hunger-bar").val(`${this.hunger}`);
+                $(".hunger-bar").val(`${this.hunger}`);
                 this.boredom+=0.75;
-                $("#boredom-bar").val(`${this.boredom}`);
+                $(".boredom-bar").val(`${this.boredom}`);
                 this.bloodlust+=1.5;
-                $("#bloodlust-bar").val(`${this.bloodlust}`);
+                $(".bloodlust-bar").val(`${this.bloodlust}`);
             } else if ($middle.hasClass("stage-2")) {
                 this.hunger+=1.5;
-                $("#hunger-bar").val(`${this.hunger}`);
+                $(".hunger-bar").val(`${this.hunger}`);
                 this.boredom++;
-                $("#boredom-bar").val(`${this.boredom}`);
+                $(".boredom-bar").val(`${this.boredom}`);
                 this.bloodlust+=2;
-                $("#bloodlust-bar").val(`${this.bloodlust}`);
+                $(".bloodlust-bar").val(`${this.bloodlust}`);
             } else if ($middle.hasClass("stage-3")) {
                 this.hunger+=2;
-                $("#hunger-bar").val(`${this.hunger}`);
+                $(".hunger-bar").val(`${this.hunger}`);
                 this.boredom+=1.5;
-                $("#boredom-bar").val(`${this.boredom}`);
+                $(".boredom-bar").val(`${this.boredom}`);
                 this.bloodlust+=3;
-                $("#bloodlust-bar").val(`${this.bloodlust}`);
+                $(".bloodlust-bar").val(`${this.bloodlust}`);
             }
         };
         if ($middle.hasClass("stage-1") || $middle.hasClass("stage-2")) {
