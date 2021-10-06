@@ -1,4 +1,8 @@
+/* === Fonts === */
+
 @import url('https://fonts.googleapis.com/css2?family=Gemunu+Libre&family=Ubuntu&display=swap');
+
+/* === General Styling === */
 
 * {
     box-sizing: border-box;
@@ -17,13 +21,20 @@ body {
     background-color: rgb(20, 47, 65);
 }
 
+p {
+    padding: 15px;
+}
+
+img {
+    width: 100%;
+}
+
+/* === Interface Styling === */
+
 main {
     position: flex;
     justify-content: space-around;
     align-items: center;
-}
-
-#interface {
     border: 5px solid black;
     border-radius: 100px;
     height: 600px;
@@ -32,6 +43,8 @@ main {
     flex-direction: column;
     background-color: rgb(180, 13, 13);
 }
+
+/* == Title == */
 
 h1 {
     font-family: 'Gemunu Libre', sans-serif;
@@ -43,9 +56,7 @@ h1 {
     padding: 5px;
 }
 
-p {
-    padding: 15px;
-}
+/* == Screens == */
 
 #screens {
     border: 2px solid black;
@@ -165,6 +176,8 @@ progress::-webkit-progress-value {
     padding-left: 37px;
 }
 
+/* == Buttons == */
+
 #buttons {
     margin-top: -10px;
     display: flex;
@@ -190,9 +203,9 @@ i {
     font-size: 28px;
 }
 
-#arrow .tooltiptext {
+.tooltiptext {
     width: 50px;
-    padding: 11px 20px;
+    padding: 10px 20px;
     color: #000000;
     background-color: #FFFFFF;
     font-family: 'Ubuntu', sans-serif;
@@ -203,8 +216,11 @@ i {
     margin-top: 20px;
     margin-left: -13px;
     box-sizing: border-box;
-    border: 1px solid #FFFFFF;box-shadow:0 1px 8px rgba(0,0,0,0.5);
-    visibility: hidden; opacity:0; transition:opacity 0.8s;
+    border: 1px solid #FFFFFF;
+    box-shadow:0 1px 8px rgba(0,0,0,0.5);
+    visibility: hidden;
+    opacity:0;
+    transition:opacity 0.8s;
 }
 
 #arrow:hover .tooltiptext {
@@ -212,43 +228,9 @@ i {
     opacity: 1;
 }
 
-#select .tooltiptext {
-    width: 50px;
-    padding: 10px 20px;
-    color: #000000;
-    background-color: #FFFFFF;
-    font-family: 'Ubuntu', sans-serif;
-    font-weight: normal;
-    font-size: 13px;
-    border-radius: 8px;
-    position: absolute;
-    margin-top: 20px;
-    margin-left: -13px;
-    box-sizing: border-box;
-    border: 1px solid #FFFFFF;box-shadow:0 1px 8px rgba(0,0,0,0.5);
-    visibility: hidden; opacity:0; transition:opacity 0.8s;
-}
-
 #select:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
-}
-
-#power .tooltiptext {
-    width: 50px;
-    padding: 10px 20px;
-    color: #000000;
-    background-color: #FFFFFF;
-    font-family: 'Ubuntu', sans-serif;
-    font-weight: normal;
-    font-size: 13px;
-    border-radius: 8px;
-    position: absolute;
-    margin-top: 20px;
-    margin-left: -13px;
-    box-sizing: border-box;
-    border: 1px solid #FFFFFF;box-shadow:0 1px 8px rgba(0,0,0,0.5);
-    visibility: hidden; opacity:0; transition:opacity 0.8s;
 }
 
 #power:hover .tooltiptext {
@@ -256,9 +238,7 @@ i {
     opacity: 1;
 }
 
-img {
-    width: 100%;
-}
+/* === Game Stage Styling === */
 
 #death {
     margin-top: 15px;

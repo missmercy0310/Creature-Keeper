@@ -14,23 +14,30 @@ const $collection = $("#collection");
 /* === Game Object === */
 
 const game = {
-    /* === Obj Variables === */
+    /* === Obj Properties === */
 
+    // Stats
     hunger: 0,
     boredom: 0,
     bloodlust: 0,
 
+    // Timer
     time: 0,
     age: 1,
+
+    // Naming
     letterIndex: 0,
     alphabet: ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'],
-    letters: ['A','A','A','A','A'],
+    letters: ['A', 'A', 'A', 'A', 'A'],
     name: '',
 
+    // Dom Elements
     $arrow: $("#arrow"),
     $select: $("#select"),
     $power: $("#power"),
 
+    // Creatures
+    creatureIndex: 0,
     creatures: [
         {
             species: "Mist Creature",
@@ -69,6 +76,7 @@ const game = {
         },
     ],
 
+    // Dom Inputs
     $interactSetup: `<p class="feed">feed</p><p class="play-with">play with</p><p class="satiate">satiate</p>`,
     $startupMessage: `<h2>Welcome!</h2><p>please press <i class="fas fa-angle-double-right"></i></p>`,
     $introMessage: `<p>You have been tasked with caring for a baby creature of your choice. Have fun with that!</p><p>press <i class="fas fa-angle-double-right"></i></p>`,
@@ -87,9 +95,7 @@ const game = {
     },
 
     gameReset() {
-        this.hunger = 0;
-        this.boredom = 0;
-        this.bloodlust = 0;
+        this.statReset();
         this.time = 0;
         this.age = 1;
         this.letterIndex = 0;
@@ -353,6 +359,9 @@ const game = {
     increaseTime() {
         this.time++;
         console.log(this.time);
+        if (this.hunger >= 10 || this.boredom >= 10 || this.bloodlust >= 10) {
+            this.death();
+        };
         if (this.time % 2 === 0) {
             if ($middle.hasClass("stage-1")) {
                 this.hunger++;
@@ -400,10 +409,7 @@ const game = {
                 this.complete();
                 this.setUpStage();
             };
-        }
-        if (this.hunger >= 10 || this.boredom >= 10 || this.bloodlust >= 10) {
-            this.death();
-        }
+        };
     },
 };
 
