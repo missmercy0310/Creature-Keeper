@@ -122,6 +122,7 @@ const game = {
             $top.empty();
             $middle.empty().removeClass(`stage-${this.age}`).append(this.$extroMessage).addClass("extro");
             $bottom.empty().append(`<p>press <i class="fas fa-check"></i></p>`);
+        // NOTE use letterIndex methodology to create for loop for these
         } else if ($middle.hasClass("stage-0")) {
             for (let i = 0; i < this.creatures.length; i++) {
                 if ($middle.hasClass(this.creatures[i].class)) {
@@ -172,6 +173,7 @@ const game = {
         } else if ($middle.hasClass("intro")) {
             this.creatureSelect();
         } else if ($middle.hasClass("birth")) {
+            // NOTE use letterIndex methodology to create for loop for these and add mist here rather than in previous step
             if ($middle.hasClass("mist")) {
                 $middle.empty().removeClass("mist").append(`<img src="gifs/Slime Tamagotchi.gif">`).addClass("slime");
                 $bottom.empty().append("<p>Slime Creature</p>");
@@ -222,6 +224,7 @@ const game = {
         } else if ($middle.hasClass("extro") || $middle.hasClass("death")) {
             this.creatureSelect();
         } else if ($middle.hasClass("stage-0")) {
+            // NOTE use letterIndex methodology to create for loop for these and select letter-1 here rather than in previous step
             if ($(".letter-1").hasClass("selected")) {
                 $(".letter-1").removeClass("selected").css("color", "black");
                 this.name += this.letters[0];
@@ -296,12 +299,14 @@ const game = {
 
     stage0 () {
         $top.empty().append("<h4>Name your creature:</h4>");
+        // NOTE a for loop to append each letter
         $middle.empty().removeClass("birth").append(`<div class="naming"><p class="letter-1">${this.letters[0]}</p><p class="letter-2">${this.letters[1]}</p><p class="letter-3">${this.letters[2]}</p><p class="letter-4">${this.letters[3]}</p><p class="letter-5">${this.letters[4]}</p></div>`).addClass("stage-0");
         $(".letter-1").css("color", "red").addClass("selected");
         $bottom.empty();
     },
 
     creatureSelect () {
+        // NOTE put these into the next step
         if ($middle.hasClass("intro")) {
             $top.append("<h4>Choose your creature:</h4>");
             $middle.empty().removeClass("intro").append(`<img src="gifs/Mist Tamagotchi.gif">`).addClass("mist birth");
@@ -363,6 +368,7 @@ const game = {
             this.death();
         };
         if (this.time % 2 === 0) {
+            // NOTE a function with params and a for loop
             if ($middle.hasClass("stage-1")) {
                 this.hunger++;
                 $(".hunger-bar").val(`${this.hunger}`);
