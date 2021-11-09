@@ -16,29 +16,29 @@ const $collection = $(".collection");
 const game = {
     /* === Obj Properties === */
 
-    // Stats
+    /* Stats */
     hunger: 0,
     boredom: 0,
     bloodlust: 0,
 
-    // Timer
+    /* Timer */
     time: 0,
     age: 1,
 
-    // Naming
+    /* Naming */
     letterIndex: 0,
     alphabet: ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'],
     letters: ['A', 'A', 'A', 'A', 'A'],
     name: '',
 
-    // Dom Elements
+    /* Dom Elements */
     $arrow: $(".arrow"),
     $select: $(".select"),
     $power: $(".power"),
 
-    // Creatures
+    /* Creatures */
     creatureIndex: 0,
-    creatures: [
+    availableCreatures: [
         {
             species: "Mist Creature",
             nameTag: "<p>Mist Creature</p>",
@@ -75,8 +75,10 @@ const game = {
             badge: '<i class="fas fa-bowling-ball"></i>',
         },
     ],
+    selectedCreature: [],
+    completedCreatures: [],
 
-    // Dom Inputs
+    /* Dom Inputs */
     $interactSetup: `<p class="feed">feed</p><p class="play-with">play with</p><p class="satiate">satiate</p>`,
     $startupMessage: `<h2>Welcome!</h2><p>please press <i class="fas fa-angle-double-right"></i></p>`,
     $introMessage: `<p>You have been tasked with caring for a baby creature of your choice. Have fun with that!</p><p>press <i class="fas fa-angle-double-right"></i></p>`,
@@ -124,9 +126,9 @@ const game = {
             $bottom.empty().append(`<p>press <i class="fas fa-check"></i></p>`);
         // NOTE use letterIndex methodology to create for loop for these
         } else if ($middle.hasClass("stage-0")) {
-            for (let i = 0; i < this.creatures.length; i++) {
-                if ($middle.hasClass(this.creatures[i].class)) {
-                    $middle.empty().append(this.creatures[i].imgs[0]);
+            for (let i = 0; i < this.availableCreatures.length; i++) {
+                if ($middle.hasClass(this.availableCreatures[i].class)) {
+                    $middle.empty().append(this.availableCreatures[i].imgs[0]);
                 }
             };
             this.statReset();
@@ -137,9 +139,9 @@ const game = {
             clearInterval(this.timer);
             this.startTimer();
         } else if ($middle.hasClass("stage-1")) {
-            for (let i = 0; i < this.creatures.length; i++) {
-                if ($middle.hasClass(this.creatures[i].class)) {
-                    $middle.empty().append(this.creatures[i].imgs[1]);
+            for (let i = 0; i < this.availableCreatures.length; i++) {
+                if ($middle.hasClass(this.availableCreatures[i].class)) {
+                    $middle.empty().append(this.availableCreatures[i].imgs[1]);
                 }
             };
             this.statReset();
@@ -150,9 +152,9 @@ const game = {
             clearInterval(this.timer);
             this.startTimer();
         } else if ($middle.hasClass("stage-2")) {
-            for (let i = 0; i < this.creatures.length; i++) {
-                if ($middle.hasClass(this.creatures[i].class)) {
-                    $middle.empty().append(this.creatures[i].imgs[2]);
+            for (let i = 0; i < this.availableCreatures.length; i++) {
+                if ($middle.hasClass(this.availableCreatures[i].class)) {
+                    $middle.empty().append(this.availableCreatures[i].imgs[2]);
                 }
             };
             this.statReset();
@@ -266,10 +268,10 @@ const game = {
             console.log("Powering On...");
             $(event.target).addClass("pressed");
             $screens.css("background-color","lightgrey");
-            for (let i = 0; i < this.creatures.length; i++) {
-                if ($collection.hasClass(this.creatures[i].class)) {
+            for (let i = 0; i < this.availableCreatures.length; i++) {
+                if ($collection.hasClass(this.availableCreatures[i].class)) {
                     $below.css("background-color","lightgrey");
-                    $collection.append(this.creatures[i].badge)
+                    $collection.append(this.availableCreatures[i].badge)
                 }
             };
             this.gameStart();
@@ -345,11 +347,11 @@ const game = {
     },
 
     complete() {
-        for (let i = 0; i < this.creatures.length; i++) {
-            if ($middle.hasClass(this.creatures[i].class) && $collection.hasClass(this.creatures[i].class) === false) {
-                $middle.removeClass(this.creatures[i].class);
+        for (let i = 0; i < this.availableCreatures.length; i++) {
+            if ($middle.hasClass(this.availableCreatures[i].class) && $collection.hasClass(this.availableCreatures[i].class) === false) {
+                $middle.removeClass(this.availableCreatures[i].class);
                 $below.css("background-color","lightgrey");
-                $collection.addClass(this.creatures[i].class).append(this.creatures[i].badge);
+                $collection.addClass(this.availableCreatures[i].class).append(this.availableCreatures[i].badge);
             }
         };
     },
